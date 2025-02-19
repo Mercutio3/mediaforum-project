@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <title>Media Review Forum - Browse</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <header>
+            <h1>Media Review Forum - Browse</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="browse.html">Browse</a></li>
+                    <li><a href="search.html">Search</a></li>
+                    <li><a href="submit.html">Submit</a></li>
+                    <li><a href="notifications.html">Notifications</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="account.html">Account</a></li>
+                    <li><a href="about.html">About/Contact</a></li>
+                    <li><a href="help.html">Help</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <section id="search-bar">
+                <form action="/search" method="GET">
+                    <input type="text" name="query" placeholder="Search..." aria-label="Search reviews">
+                    <button type="submit">Search</button>
+                </form>
+            </section>
+            <section id="reviews">
+                <h2>Reviews</h2>
+                <div class="grid">
+                    <article class="review">
+                        <h3><a href="review.html">Review 1</a></h3>
+                        <p class="media-type">Book</p>
+                        <p class="rating">4/5</p>
+                        <p class="summary">Summary.</p>
+                        <footer>
+                            <span>Published by <a href="user.html">User</a></span>
+                            <span>Likes: </span>
+                            <span>Comments: </span>
+                        </footer>
+                    </article>
+                    <article class="review">
+                        <h3><a href="review.html">Review 2</a></h3>
+                        <p class="media-type">Movie</p>
+                        <p class="rating">4/5</p>
+                        <p class="summary">Summary.</p>
+                        <footer>
+                            <span>Published by <a href="user.html">User</a></span>
+                            <span>Likes: </span>
+                            <span>Comments: </span>
+                        </footer>
+                    </article>
+                </div>
+                <div class="pages">
+                    <a href="#" class="prev">Previous</a>
+                    <a href="#" class="page">1</a>
+                    <a href="#" class="page">2</a>
+                    <a href="#" class="page">3</a>
+                    <a href="#" class="next">Next</a>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p>&copy 2025 Santiago Ham</p>
+        </footer>
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
