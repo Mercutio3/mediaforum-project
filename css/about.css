@@ -1,0 +1,43 @@
+#introduction {
+    margin-bottom: 20px;
+}
+
+#features ul {
+    list-style: none;
+    padding: 0;
+}
+
+#features ul li {
+    margin-bottom: 10px;
+}
+
+#mitmachen {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#mitmachen a {
+    background: #f39c12;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+#mitmachen a:hover {
+    background:#e67e22;
+}
+
+#contact {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#contact a {
+    color: #f39c12;
+    text-decoration: none;
+}
+
+#contact a:hover {
+    text-decoration: underline;
+}

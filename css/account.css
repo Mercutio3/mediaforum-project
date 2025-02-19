@@ -1,0 +1,101 @@
+#account-info{
+    margin-bottom: 20px;
+}
+
+#account-info p{
+    margin: 0;
+}
+
+#edit-account {
+    margin-bottom: 20px;
+}
+
+#edit-account textarea{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: vertical;
+}
+
+#edit-account button {
+    background: #f39c12;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#edit-account button:hover {
+    background: #e67e22;
+}
+
+#account-password {
+    margin-bottom: 20px;
+}
+
+#account-password input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#account-password button {
+    background: #f39c12;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#account-password button:hover {
+    background: #e67e22;
+}
+
+#account-privacy {
+    margin-bottom: 20px;
+}
+
+#account-privacy label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+#account-privacy button {
+    background: #f39c12;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#account-privacy button:hover {
+    background: #e67e22;
+}
+
+#delete-account {
+    margin-bottom: 20px;
+}
+
+#delete-account p {
+    color: #ff0000;
+}
+
+#delete-account-button {
+    background: #ff0000;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#delete-account-button:hover {
+    background: #cc0000;
+}

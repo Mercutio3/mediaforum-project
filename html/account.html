@@ -2,11 +2,14 @@
 <html lang = "en">
     <head>
         <title>Media Review Forum - Account</title>
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../css/global.css">
+        <link rel="stylesheet" type="text/css" href="../css/account.css">
     </head>
     <body>
         <header>
-            <h1>Media Review Forum</h1>
+            <h1>Media Review Forum - Account</h1>
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
@@ -22,10 +25,53 @@
             </nav>
         </header>
         <main>
-
+            <h2>Account Settings</h2>
+            <section id="account-info">
+                <p>Username: User</p>
+                <p>Email: email@example.de</p>
+            </section>
+            <section id="edit-account">
+                <h3>Change Profile Info</h3>
+                <form id="edit-account-form" action="/edit-profile" method="POST">
+                    <label for="bio">Bio:</label>
+                    <textarea id="bio" name="bio" rows="5" placeholder="User bio..."></textarea>
+                    <label for="profile-picture">Profile Picture:</label>
+                    <input type="file" id="profile-picture" name="profile-picture" accept="image/*">
+                    <button type="submit">Save</button>
+                </form>
+            </section>
+            <section id="account-password">
+                <h3>Change Password</h3>
+                <form id="account-password-form" action="/change-password" method="POST">
+                    <label for="current-password">Current Password:</label>
+                    <input type="password" id="current-password" name="current-password" required>
+                    <label for="new-password">New Password:</label>
+                    <input type="password" id="new-password" name="new-password" required>
+                    <label for="repeat-new-password">Repeat New Password:</label>
+                    <input type="password" id="repeat-new-password" name="repeat-new-password" required>
+                </form>
+            </section>
+            <section id="account-privacy">
+                <h3>Privacy Settings</h3>
+                <form id="account-privacy-form" action="/privacy-settings" method="POST">
+                    <label>
+                        <input type="checkbox" name="account-public" checked>
+                        Public Profile
+                    </label>
+                    <label>
+                        <input type="checkbox" name="account-public">
+                        Email Notifications
+                    </label>
+                    <button type="submit">Save</button>
+                </form>
+            </section>
+            <section id="delete-account">
+                <h3>Delete Account</h3>
+                <button id="delete-account-button">Delete</button>
+            </section>
         </main>
         <footer>
-            <p>&copy 2025 Class</p>
+            <p>&copy 2025 Santiago Ham</p>
         </footer>
         <script src="js/scripts.js"></script>
     </body>

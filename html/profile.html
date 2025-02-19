@@ -4,6 +4,8 @@
         <title>Media Review Forum - Profile</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../css/global.css">
+        <link rel="stylesheet" type="text/css" href="../css/profile.css">
     </head>
     <body>
         <header>
@@ -25,11 +27,12 @@
         <main>
             <section id="profile-info">
                 <div class="profile-picture">
-                    <img src="images/profile.jpg" alt="Profile Picture">
+                    <img src="images/server-icon.jpeg" alt="Profile Picture">
                 </div>
                 <div class="profile-details">
                     <h2>Username</h2>
                     <p class="bio">User bio goes here.</p>
+                    <a href="edit-profile.html" class="edit-profile-button">Edit Profile</a>
                 </div>
             </section>
             <section id="profile-stats">
@@ -51,8 +54,8 @@
             </section>
             <section id="profile-reviews">
                 <h2>Reviews</h2>
-                <div class="grid">
-                    <article class="review">
+                <div class="profile-reviews-grid">
+                    <article class="profile-review-card">
                         <h3><a href="review.html">Review 1</a></h3>
                         <p class="media-type">Book</p>
                         <p class="rating">4/5</p>
@@ -60,10 +63,10 @@
                         <footer>
                             <span>Published on DATE.</span>
                             <a href="editReview.html">Edit</a>
-                            <a href="deleteReview.html">Delete</a>
+                            <a hrefs="deleteReview.html">Delete</a>
                         </footer>
                     </article>
-                    <article class="review">
+                    <article class="profile-review-card">
                         <h3><a href="review.html">Review 2</a></h3>
                         <p class="media-type">Movie</p>
                         <p class="rating">4/5</p>

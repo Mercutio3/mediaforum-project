@@ -4,7 +4,8 @@
         <title>Media Review Forum</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="../css/styles.css">
+        <link rel="stylesheet" type="text/css" href="../css/global.css">
+        <link rel="stylesheet" type="text/css" href="../css/index.css"
     </head>
     <body>
         <header>
@@ -24,17 +25,17 @@
             </nav>
         </header>
         <main>
-            <section id="hero">
-                <div class="hero-section">
+            <section id="hero-section">
+                <div class="hero">
                     <h2>Hero title</h2>
                     <p>Join us! blah blah blah</p>
-                    <a href="signup.html" class="cta-button">Sign Up</a>
+                    <a href="signup.html" class="mitmachen-button">Sign Up</a>
                 </div>
             </section>
             <section id="trending">
                 <h2>Trending Reviews</h2>
-                <div class="grid">
-                    <article class="review">
+                <div class="trending-review-grid">
+                    <article class="trending-review-card">
                         <h3><a href="review.html">Review 1</a></h3>
                         <p class="media-type">Book</p>
                         <p class="rating">4/5</p>
@@ -45,7 +46,7 @@
                             <span>Comments: </span>
                         </footer>
                     </article>
-                    <article class="review">
+                    <article class="trending-review-card">
                         <h3><a href="review.html">Review 2</a></h3>
                         <p class="media-type">Movie</p>
                         <p class="rating">4/5</p>
@@ -58,9 +59,26 @@
                     </article>
                 </div>
             </section>
+            <section id="featured-media">
+                <h2>Featured Media</h2>
+                <div class="featured-media-grid">
+                    <article class="featured-media-card">
+                        <img src="images/movie1.jpg" alt="Movie Poster">
+                        <h3><a href="media.html">Star Wars</a></h3>
+                        <p>Genre: Space Opera</p>
+                        <p>Reviews: 100</p>
+                    </article>
+                    <article class="featured-media-card">
+                        <img src="images/book1.jpg" alt="Book Cover">
+                        <h3><a href="media.html">The Grapes of Wrath</a></h3>
+                        <p>Genre: Epic</p>
+                        <p>Reviews: 30</p>
+                    </article>
+                </div>
+            </section>
         </main>
         <footer>
-            <p>&copy 2025 Class</p>
+            <p>&copy 2025 Santiago Ham</p>
         </footer>
         <script src="js/scripts.js"></script>
     </body>
