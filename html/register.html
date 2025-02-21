@@ -1,0 +1,55 @@
+<!-- This is the signup page. -->
+
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <title>Media Review Forum - Register</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../css/global.css">
+        <link rel="stylesheet" type="text/css" href="../css/register.css">
+    </head>
+    <body>
+        <header>
+            <h1>Media Review Forum - Register</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="browse.html">Browse</a></li>
+                    <li><a href="search.html">Search</a></li>
+                    <li><a href="submit.html">Submit</a></li>
+                    <li><a href="notifications.html">Notifications</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="account.html">Account</a></li>
+                    <li><a href="about.html">About/Contact</a></li>
+                    <li><a href="help.html">Help</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <h2>Register New User</h2>
+            <form id="register-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <label for="confirm-password">Re-type Password:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+                <button type="submit">Register</button>
+            </form>
+
+            <div id="register-error" class="hidden"></div>
+            <div id="register-success" class="hidden">
+                <p>Success! Redirecting to login page...</p>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Santiago Ham</p>
+        </footer>
+        <script src="../javascript/register.js"></script>
+    </body>
+</html>

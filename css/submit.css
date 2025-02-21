@@ -10,7 +10,7 @@ h2 {
     margin-bottom: 20px;
 }
 
-fieldset {
+#submission-form fieldset {
     margin-bottom: 20px;
     padding: 20px;
     border: 1px solid #ddd;
@@ -22,8 +22,49 @@ legend {
     padding: 0 10px;
 }
 
-label {
+#submission-form label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
+}
+
+#submission-form input[type="text"], #submission-form input[type="number"], #review-form select, #review-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#submission-form textarea {
+    resize: vertical;
+}
+
+#submission-form button {
+    background: #E3B23C;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#submission-form button:hover {
+    background: #e67e22;
+}
+
+#preview {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #f9f9f9;
+}
+
+#preview h4 {
+    margin-bottom: 10px;
+}
+
+#preview p {
+    margin: 0;
 }

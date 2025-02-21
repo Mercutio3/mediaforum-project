@@ -1,3 +1,4 @@
+<!-- This is the browse page. Reviews are displayed and can be filtered. -->
 <!DOCTYPE html>
 <html lang = "en">
     <head>
@@ -41,6 +42,7 @@
                         <option value="movie">Movie</option>
                         <option value="book">Book</option>
                     </select>
+
                     <label for="genre">Genre:</label>
                     <select id="genre" name="genre">
                         <option value="all">All</option>
@@ -48,39 +50,21 @@
                         <option value="sci-fi">Sci-Fi</option>
                         <option value="nonfiction">Nonfiction</option>
                     </select>
+
                     <label for="sort-by">Sort by:</label>
                     <select id="sort-by" name="sort-by">
                         <option value="date">Date</option>
-                        <option value="date">Rating</option>
+                        <option value="likes">Likes</option>
+                        <option value="rating">Rating</option>
                     </select>
+
                     <button type="submit">Apply Filters</button>
                 </form>
             </section>
             <section id="reviews">
                 <h2>Reviews</h2>
                 <div class="browse-review-grid">
-                    <article class="browse-review-card">
-                        <h3><a href="review.html">Review 1</a></h3>
-                        <p class="media-type">Book</p>
-                        <p class="rating">4/5</p>
-                        <p class="summary">Summary.</p>
-                        <footer>
-                            <span>Published by <a href="user.html">User</a></span>
-                            <span>Likes: </span>
-                            <span>Comments: </span>
-                        </footer>
-                    </article>
-                    <article class="browse-review-card">
-                        <h3><a href="review.html">Review 2</a></h3>
-                        <p class="media-type">Movie</p>
-                        <p class="rating">4/5</p>
-                        <p class="summary">Summary.</p>
-                        <footer>
-                            <span>Published by <a href="user.html">User</a></span>
-                            <span>Likes: </span>
-                            <span>Comments: </span>
-                        </footer>
-                    </article>
+                    
                 </div>
                 <div class="browse-pages">
                     <a href="#" class="prev">Previous</a>
@@ -94,6 +78,6 @@
         <footer>
             <p>&copy 2025 Santiago Ham</p>
         </footer>
-        <script src="js/scripts.js"></script>
+        <script src="../javascript/browse.js"></script>
     </body>
 </html>

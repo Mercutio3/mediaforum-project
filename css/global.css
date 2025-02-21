@@ -7,11 +7,12 @@ body, h1, h2, h3, ul, li, p, form, input, button, textarea, fieldset, legend {
 body {
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.6;
-    padding: 20px;
+    padding: 0px;
+    background: #F5F1E3;
 }
 
 header {
-    background: #333;
+    background: #5A3E36;
     color: #fff;
     padding: 10px 0;
     text-align: center;
@@ -61,7 +62,7 @@ footer {
     text-align: center;
     margin-top: 20px;
     padding: 10px 0;
-    background: #333;
+    background: #5A3E36;
     color: #fff;
 }
 

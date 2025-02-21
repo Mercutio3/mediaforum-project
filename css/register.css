@@ -1,0 +1,58 @@
+#register-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #f9f9f9;
+}
+
+#register-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#register-form input[type="text"], #register-form input[type="email"], #register-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#register-form button {
+    width: 100%;
+    background: #f39c12;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#register-form button:hover {
+    background: #e67e22;
+}
+
+#register-error {
+    color: #ff0000;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ff0000;
+    border-radius: 5px;
+    background: #ffe6e6;
+}
+
+#register-success {
+    color: #008000;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #008000;
+    border-radius: 5px;
+    background: #e6ffe6;
+}
+
+.hidden {
+    display: none;
+}

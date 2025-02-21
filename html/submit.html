@@ -28,8 +28,8 @@
             <h2>Submit Review</h2>
             <form id="submission-form" action="/submit-review" method="POST">
                 <fieldset>
-                    <legend>Details</legend>
-                    <label for="media-type">Type:</label>
+                    <legend>Media Details</legend>
+                    <label for="media-type">Type of Media:</label>
                     <select id="media-type" name="media-type" required>
                         <option value="">Select type...</option>
                         <option value="movie">Movie</option>
@@ -46,6 +46,7 @@
                     <label for="media-title">Year:</label>
                     <input type="number" id="media-year" name="media-year" min="0" max="2025" placeholder="Enter year..." required>
                 </fieldset>
+                
                 <fieldset>
                     <legend>Review Content</legend>
                     <label for="review-title">Review Title:</label>
@@ -62,19 +63,26 @@
                     <label for="review-content">Review:</label>
                     <textarea id="review-content" name="review-content" rows="10" placeholder="Write review..." required></textarea></textarea>
                 </fieldset>
+
                 <fieldset>
                     <legend>Optional Information</legend>
                     <label for="tags">Tags:</label>
                     <input type="text" id="tags" name="tags" placeholder="Add tags...">
                     <label for="media-image">Upload image:</label>
-                    <input type="file" id="media-image" name="media-image">
+                    <input type="file" id="media-image" name="media-image" accept="image/*">
                 </fieldset>
+
                 <button type="submit">Submit</button>
             </form>
+
+            <section id="preview">
+                <h3>Review Preview</h3>
+                <div id="review-preview"></div>
+            </section>
         </main>
         <footer>
             <p>&copy 2025 Santiago Ham</p>
         </footer>
-        <script src="js/scripts.js"></script>
+        <script src="../javascript/submit.js"></script>
     </body>
 </html>

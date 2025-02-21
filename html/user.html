@@ -1,0 +1,73 @@
+<!-- This is the dedicated user page. -->
+
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <title>Media Review Forum - User</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../css/global.css">
+        <link rel="stylesheet" type="text/css" href="../css/user.css">
+    </head>
+    <body>
+        <header>
+            <h1>Media Review Forum - User</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="browse.html">Browse</a></li>
+                    <li><a href="search.html">Search</a></li>
+                    <li><a href="submit.html">Submit</a></li>
+                    <li><a href="notifications.html">Notifications</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="account.html">Account</a></li>
+                    <li><a href="about.html">About/Contact</a></li>
+                    <li><a href="help.html">Help</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+                <section id="user-info">
+                    <div class="pfp">
+                        <img src="images/profile.jpg" alt="Proifle Picture" id="user-pfp">
+
+                    </div>
+                    <div class="user-details">
+                        <h2 id="username">Loading...</h2>
+                        <p class="bio" id="user-bio">Loading...</p>
+                    </div>
+                </section>
+
+                <section id="statistics">
+                    <h2>User Stats"</h2>
+                    <div class="user-stats-grid">
+                        <div class="user-statistic">
+                            <h3>Reviews Written</h3>
+                            <p id="user-review-count">0</p>
+                        </div>
+                        <div class="user-statistic">
+                            <h3>Likes Received</h3>
+                            <p id="user-like-count">0</p>
+                        </div>
+                        <div class="user-statistic">
+                            <h3>Comments Made</h3>
+                            <p id="user-comment-count">0</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="user-reviews">
+                    <h2>Reviews</h2>
+                    <div class="user-review-grid" id="user-review-list">
+
+                    </div>
+                </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Santiago Ham</p>
+        </footer>
+        <script src="../javascript/user.js"></script>
+    </body>
+</html>

@@ -1,3 +1,11 @@
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
 #account-info{
     margin-bottom: 20px;
 }
@@ -20,7 +28,7 @@
 }
 
 #edit-account button {
-    background: #f39c12;
+    background: #E3B23C;
     color: #fff;
     padding: 10px 20px;
     border: none;

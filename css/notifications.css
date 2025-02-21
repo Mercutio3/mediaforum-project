@@ -3,7 +3,7 @@
 }
 
 .button-filter {
-    background: #f39c12;
+    background: #E3B23C;
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -20,7 +20,7 @@
     background: #e67e22;
 }
 
-#notification-list {
+#notifications {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -36,6 +36,14 @@
     background: #f9f9f9;
 }
 
+.notification.unread {
+    background: #e3f2fd;
+}
+
+.notification.read {
+    opacity: 0.7;
+}
+
 .notification-content .notification-time {
     font-size: 0.9em;
     color: #666;
@@ -43,6 +51,11 @@
 
 .notification-content p {
     margin: 0;
+}
+
+.notification-content timestamp {
+    font-size: 0.9em;
+    color: #666;
 }
 
 .mark-as-read {
