@@ -56,3 +56,17 @@
 .hidden {
     display: none;
 }
+
+p {
+    text-align: center;
+    margin-top: 20px;
+}
+
+p a {
+    color: #f39c12;
+    text-decoration: none;
+}
+
+p a:hover {
+    text-decoration: underline;
+}

@@ -2,45 +2,60 @@ document.addEventListener("DOMContentLoaded", function() {
     const filterForm = document.getElementById("browse-filter-form");
     const reviewGrid = document.querySelector(".browse-review-grid");
 
-    const reviews = [
-        { title: "Review 1", mediaType: "book", rating: 4, summary: "summary book", poster: "Mercutio33", likes: 33, comments: 22},
-        { title: "Review 2", mediaType: "movie", rating: 3, summary: "summary movie", poster: "Olaf Scholz", likes: 2, comments: 6},
-        { title: "Review 3", mediatype: "tv-show", rating: 5, summary: "summary show", poster: "Brian", likes: 139, comments: 0},
-    ]
+    async function fetchReviews() {
+        try {
+            const response = await fetch("../php/browse.php");
+            const data = await response.json();
 
-    function displayReviews(filteredReviews) {
-        reviewGrid.innerHTML = filteredReviews.map(review => `
+            if (data.success) {
+                return data.reviews;
+            } else {
+                console.error("Failed to fetch reviews:", data.message);
+                return [];
+            }
+        } catch (error) {
+            console.error("Error fetching:", error);
+            return [];
+        }
+    }
+
+    function displayReviews(reviews) {
+        reviewGrid.innerHTML = reviews.map(review => `
             <article class="browse-review-card">
-                <h3><a href="review.html">${review.title}</a></h3>
-                <p class="media-type">${review.mediaType}</p>
+                <h3><a href="review.html?id=${review.id}">${review.title}</a></h3>
+                <p class="media-type">${review.media_type}</p>
                 <p class="rating">Rating: ${"*".repeat(review.rating)}${"-".repeat(5 - review.rating)}</p>
                 <p class="summary">${review.summary}</p>
                 <footer>
-                    <span>Posted by <a href="user.html">${review.poster}</a></span>
-                    <span>Likes: ${review.likes}</span>
-                    <span>Comments: ${review.comments}</span>
+                    <span>Posted by <a href="../profile.php?user_id=${review.user_id}">${review.username}</a></span>
+                    <span>Likes: ${review.likes || 0}</span>
+                    <span>Comments: ${review.comments || 0}</span>
                 </footer>
             </article>
         `).join("");
     }
 
-    displayReviews(reviews);
+    fetchReviews().then(reviews => {
+        displayReviews(reviews);
+    });
 
-    filterForm.addEventListener("submit", function (event) {
+    filterForm.addEventListener("submit", async function (event) {
         event.preventDefault();
 
         const mediaType = document.getElementById("media-type").value;
         const genre = document.getElementById("genre").value;
         const sortBy = document.getElementById("sort-by").value;
 
+        const reviews = await fetchReviews();
+
         const filteredReviews = reviews.filter(review => {
-            return (mediaType === "all" || review.mediaType === mediaType) && (genre === "all" || review.genre === genre);
+            return (mediaType === "all" || review.media_type === mediaType) && (genre === "all" || review.genre === genre);
         });
 
         if(sortBy === "date") {
-            filteredReviews.sort((a,b) => new Date(b.date) - new Date(a.date));
+            filteredReviews.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
         } else if(sortBy === "likes") {
-            filteredReviews.sort((a,b) => b.likes - a.likes);
+            filteredReviews.sort((a,b) => (b.likes || 0) - (a.likes || 0));
         } else if(sortBy === "rating") {
             filteredReviews.sort((a,b) => b.rating - a.rating);
         }

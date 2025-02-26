@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
             password,
         };
 
-        fetch("/apt/signup", {
+        fetch("../php/register.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(response => response.json())
         .then(data => {
-            if(data.succes) {
+            if(data.success) {
                 displaySuccess();
             } else {
                 displayError(data.message || "Signup failed. Please try again.")

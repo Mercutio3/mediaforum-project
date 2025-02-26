@@ -1,0 +1,47 @@
+<!-- This is the browse page. Reviews are displayed and can be filtered. -->
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <title>Media Review Forum - Login</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="css/global.css">
+        <link rel="stylesheet" type="text/css" href="css/login.css">
+    </head>
+    <body>
+        <header>
+            <h1>Media Review Forum - Login</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="browse.html">Browse</a></li>
+                    <li><a href="search.html">Search</a></li>
+                    <li><a href="submit.php">Submit</a></li>
+                    <li><a href="notifications.html">Notifications</a></li>
+                    <li><a href="profile.php">Profile</a></li>
+                    <li><a href="account.php">Account</a></li>
+                    <li><a href="about.html">About/Contact</a></li>
+                    <li><a href="logout.php">Logout</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <h2>Login</h2>
+
+            <form id="login-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Log In</button>
+            </form>
+
+            <div id="login-error" class="hidden"></div>
+            <p>If you don't have an account, <a href="register.html">sign up here</a>!</p>
+        </main>
+        <footer>
+            <p>&copy 2025 Santiago Ham</p>
+        </footer>
+        <script src="javascript/login.js"></script>
+    </body>
+</html>

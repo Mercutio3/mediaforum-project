@@ -6,8 +6,8 @@
         <title>Media Review Forum - Review</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="../css/global.css">
-        <link rel="stylesheet" type="text/css" href="../css/review.css">
+        <link rel="stylesheet" type="text/css" href="css/global.css">
+        <link rel="stylesheet" type="text/css" href="css/review.css">
     </head>
     <body>
         <header>
@@ -17,12 +17,12 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="browse.html">Browse</a></li>
                     <li><a href="search.html">Search</a></li>
-                    <li><a href="submit.html">Submit</a></li>
+                    <li><a href="submit.php">Submit</a></li>
                     <li><a href="notifications.html">Notifications</a></li>
-                    <li><a href="profile.html">Profile</a></li>
-                    <li><a href="account.html">Account</a></li>
+                    <li><a href="profile.php">Profile</a></li>
+                    <li><a href="account.php">Account</a></li>
                     <li><a href="about.html">About/Contact</a></li>
-                    <li><a href="help.html">Help</a></li>
+                    <li><a href="logout.php">Logout</a></li>
                 </ul>
             </nav>
         </header>
@@ -31,8 +31,16 @@
             <section id="review-details">
                 <h2 id="review-title">Loading...</h2>
                 <p class="media-type" id="review-media-type">Loading...</p>
+                <p class="media-title" id="review-media-title">Loading...</p>
+                <p class="media-creator" id="review-media-creator">Loading...</p>
+                <p class="media-year" id="review-media-year">Loading...</p>
                 <p class="rating" id="review-rating">Loading...</p>
                 <p class="summary" id="review-summary">Loading...</p>
+                <p class="tags" id="review-tags">Loading...</p>
+                <p class="created-at" id="review-created-at">Loading...</p>
+                <div class="image-container" id="review-image-container">
+                    <img id="review-image" src="" alt="Media Image">
+                </div>
                 <footer>
                     <span>Posted by <a href="user.html" id="review-poster">Loading...</a></span>
                     <span>Likes: <span id="review-like-count">0</span></span>
@@ -57,6 +65,6 @@
         <footer>
             <p>&copy; 2025 Santiago Ham</p>
         </footer>
-        <script src="../javascript/review.js"></script>
+        <script src="javascript/review.js"></script>
     </body>
 </html>

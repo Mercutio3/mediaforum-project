@@ -1,5 +1,10 @@
-#introduction {
+#intro {
     margin-bottom: 20px;
+    text-align: center;
+}
+
+#features {
+    text-align: center;
 }
 
 #features ul {
@@ -9,23 +14,6 @@
 
 #features ul li {
     margin-bottom: 10px;
-}
-
-#mitmachen {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-#mitmachen a {
-    background: #f39c12;
-    color: #fff;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-}
-
-#mitmachen a:hover {
-    background:#e67e22;
 }
 
 #contact {
@@ -40,4 +28,48 @@
 
 #contact a:hover {
     text-decoration: underline;
+}
+
+#faq-list {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.faq {
+    margin-bottom: 15px;
+}
+
+.faq-item h3 {
+    color: #f39c12;
+    margin-bottom: 5px;
+}
+
+#contact-form {
+    margin-bottom: 20px;
+}
+
+#contact-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#contact-form input, #contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#contact-form button {
+    background: #f39c12;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#contact-form button:hover {
+    background: #e67e22;
 }

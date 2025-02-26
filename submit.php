@@ -1,11 +1,20 @@
+<?php
+session_start();
+
+if(!isset($_SESSION["user_id"])){
+    header("Location: login.html");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang = "en">
     <head>
         <title>Media Review Forum - Submit</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../css/global.css">
-        <link rel="stylesheet" href="../css/submit.css">
+        <link rel="stylesheet" href="css/global.css">
+        <link rel="stylesheet" href="css/submit.css">
     </head>
     <body>
         <header>
@@ -15,22 +24,22 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="browse.html">Browse</a></li>
                     <li><a href="search.html">Search</a></li>
-                    <li><a href="submit.html">Submit</a></li>
+                    <li><a href="submit.php">Submit</a></li>
                     <li><a href="notifications.html">Notifications</a></li>
-                    <li><a href="profile.html">Profile</a></li>
-                    <li><a href="account.html">Account</a></li>
+                    <li><a href="profile.php">Profile</a></li>
+                    <li><a href="account.php">Account</a></li>
                     <li><a href="about.html">About/Contact</a></li>
-                    <li><a href="help.html">Help</a></li>
+                    <li><a href="logout.php">Logout</a></li>
                 </ul>
             </nav>
         </header>
         <main>
             <h2>Submit Review</h2>
-            <form id="submission-form" action="/submit-review" method="POST">
+            <form id="submission-form" action="/submit-review" method="POST" enctype="multipart/form-data">
                 <fieldset>
                     <legend>Media Details</legend>
                     <label for="media-type">Type of Media:</label>
-                    <select id="media-type" name="media-type" required>
+                    <select id="media-type" name="media_type" required>
                         <option value="">Select type...</option>
                         <option value="movie">Movie</option>
                         <option value="tvshow">TV Show</option>
@@ -38,19 +47,19 @@
                     </select>
 
                     <label for="media-title">Title:</label>
-                    <input type="text" id="media-title" name="media-title" placeholder="Enter title..." required>
+                    <input type="text" id="media-title" name="media_title" placeholder="Enter title..." required>
 
                     <label for="media-title">Creator:</label>
-                    <input type="text" id="media-creator" name="media-creator" placeholder="Enter creator..." required>
+                    <input type="text" id="media-creator" name="media_creator" placeholder="Enter creator..." required>
 
                     <label for="media-title">Year:</label>
-                    <input type="number" id="media-year" name="media-year" min="0" max="2025" placeholder="Enter year..." required>
+                    <input type="number" id="media-year" name="media_year" min="0" max="2025" placeholder="Enter year..." required>
                 </fieldset>
                 
                 <fieldset>
                     <legend>Review Content</legend>
                     <label for="review-title">Review Title:</label>
-                    <input type="text" id="review-title" name="review-title" placeholder="Enter title..." required>
+                    <input type="text" id="review-title" name="title" placeholder="Enter title..." required>
                     <label for="rating">Rating:</label>
                     <select id="rating" name="rating" required>
                         <option value="">Select Rating:</option>
@@ -61,7 +70,7 @@
                         <option value="5">*****</option>
                     </select>
                     <label for="review-content">Review:</label>
-                    <textarea id="review-content" name="review-content" rows="10" placeholder="Write review..." required></textarea></textarea>
+                    <textarea id="review-content" name="summary" rows="10" placeholder="Write review..." required></textarea></textarea>
                 </fieldset>
 
                 <fieldset>
@@ -83,6 +92,6 @@
         <footer>
             <p>&copy 2025 Santiago Ham</p>
         </footer>
-        <script src="../javascript/submit.js"></script>
+        <script src="javascript/submit.js"></script>
     </body>
 </html>

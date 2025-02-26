@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <title>Media Review Forum - About</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="css/global.css">
+        <link rel="stylesheet" type="text/css" href="css/about.css">
+    </head>
+    <body>
+        <header>
+            <h1>Media Review Forum - About</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="browse.html">Browse</a></li>
+                    <li><a href="search.html">Search</a></li>
+                    <li><a href="submit.php">Submit</a></li>
+                    <li><a href="notifications.html">Notifications</a></li>
+                    <li><a href="profile.php">Profile</a></li>
+                    <li><a href="account.php">Account</a></li>
+                    <li><a href="about.html">About/Contact</a></li>
+                    <li><a href="logout.php">Logout</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <h2>About Us</h2>
+            <section id="intro">
+                <h3>Welcome</h3>
+                <p>The <strong>Media Review Forum</strong> allows users to upload reviews of different
+                    media they've consumed. In contrast to existing forums, which tend to specialize in a single kind
+                    of media (e.g. books, films, TV shows, etc.), this forum serves as a general hub for reviews on a
+                    wider variety of media. This forum can be used by casual fans, media enthusiasts, and critics
+                    alike. We bring everyone together with love for media.</p><br>
+                <p>This forum was developed as part of a Web App Development course at Constructor University.</p>
+                <p>The GitHub repository containing this project's files can be found <a href="https://github.com/Mercutio3/mediaforum-project">here</a>.</p>
+            </section>
+            <br>
+            <section id="features">
+                <h2>Features</h2>
+                <ul>
+                    <li><strong>Review Submission: </strong>Submit reviews with a variety of attributes about a variety of media.</li>
+                    <li><strong>Account Creation: </strong>Dedicated profile pages for each user.</li>
+                    <li><strong>Community Interaction: </strong>Interact with different users simulaneously via likes, comments, and ratings on reviews and profiles.</li>
+                    <li><strong>Review Browsing: </strong>Browse and filter reviews according to desired search parameters.</li>
+                    <li><strong>Cosmetic Customization: </strong>Different color themes to best suit your taste.</li>
+                </ul>
+            </section>
+            <br>
+            <section id="faq-list">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq">
+                    <h3>What can I do without an account?</h3>
+                    <p>You are free to browse and search through all of our reviews, as well as see who has posted them and commented on them.</p>
+                </div>
+                <div class="faq">
+                    <h3>Why should I create an account?</h3>
+                    <p>Creating an account gives you access to all of this website's features. This includes the ability to post your own reviews and customize your profile.</p>
+                </div>
+                <div class="faq">
+                    <h3>How do I create an account?</h3>
+                    <p>This can be easily done <a href="register.html">HERE</a>.</p>
+                </div>
+            </section>
+            <br>
+            <section id="contact">
+                <h2>Contact</h2>
+                <p>If you have any questions about how to use my product or feedback on how I can improve it, please reach out to <a href="mailto:sdominguezham@constructor.university">sdominguezham@constructor.university</a>.</p>
+                <p>Alternatively, you can fill out the contact form below:</p>
+            </section>
+            
+            <section id="contact-form">
+                <form id="contact-form" action="/submit-contact" method="POST">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email required">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                    <button type="submit">Send</button>
+                </form>
+            </section>
+        </main>
+        <footer>
+            <p>&copy 2025 Santiago Ham</p>
+        </footer>
+    </body>
+</html>
