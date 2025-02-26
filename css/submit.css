@@ -2,38 +2,52 @@ main {
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid #C4B7A8;
     border-radius: 5px;
+    background: #FFF;
+    color: #5A3E36;
 }
 
 h2 {
     margin-bottom: 20px;
+    color: #5A3E36
 }
 
 #submission-form fieldset {
     margin-bottom: 20px;
     padding: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid #C4B7A8;
     border-radius: 5px;
+    background: #FFF;
 }
 
-legend {
+#submission-form legend {
     font-weight: bold;
     padding: 0 10px;
+    color: #5A3E36;
 }
 
 #submission-form label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
+    color: #5A3E36;
 }
 
-#submission-form input[type="text"], #submission-form input[type="number"], #review-form select, #review-form textarea {
+#submission-form input[type="text"], #submission-form input[type="number"], #submission-form select, #submission-form textarea {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid #ddd;
+    border: 1px solid #C4B7A8;
     border-radius: 5px;
+    background: #FFF;
+    color: #5A3E36;
+    transition: border-color 0.3s ease;
+}
+
+#submission-form input[type="text"]:focus, #submission-form input[type="number"]:focus, #submission-form select:focus, #submission-form textarea:focus{
+    border-color: #E3B23C;
+    outline: none;
 }
 
 #submission-form textarea {
@@ -42,29 +56,41 @@ legend {
 
 #submission-form button {
     background: #E3B23C;
-    color: #fff;
+    color: #5A3E36;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background 0.3s ease;
 }
 
 #submission-form button:hover {
-    background: #e67e22;
+    background: #D49C2E;
+}
+
+#submission-form button:active {
+    background: #F0C86E;
 }
 
 #preview {
     margin-top: 20px;
     padding: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid #C4B7A8;
     border-radius: 5px;
-    background: #f9f9f9;
+    background: #FFF;
+    color: #5A3E36;
 }
 
 #preview h4 {
     margin-bottom: 10px;
+    color: #5A3E36;
 }
 
 #preview p {
     margin: 0;
+    color: #5A3E36;
+}
+
+#preview p strong {
+    color: #A37C40;
 }

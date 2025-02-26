@@ -2,55 +2,72 @@
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid #C4B7A8;
     border-radius: 5px;
-    background: #f9f9f9;
+    background: #FFF;
+    color: #5A3E36
 }
 
 #register-form label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
+    color: #5A3E36
 }
 
 #register-form input[type="text"], #register-form input[type="email"], #register-form input[type="password"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid #ddd;
+    border: 1px solid #C4B7A8;
     border-radius: 5px;
+    background: #FFF;
+    color: #5A3E36;
+    transition: border-color 0.3 ease;
+}
+
+#register-form input[type="text"]:focus, #register-form input[type="email"]:focus, #register-form input[type="password"]:focus {
+    border-color: #E3B23C;
+    outline: none;
 }
 
 #register-form button {
     width: 100%;
-    background: #f39c12;
-    color: #fff;
+    background: #E3B23C;
+    color: #5A3E36;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background 0.3s ease;
 }
 
 #register-form button:hover {
-    background: #e67e22;
+    background: #D49C2E;
+}
+
+#register-form button:active {
+    background: #F0C86E;
 }
 
 #register-error {
-    color: #ff0000;
+    color: #D9534F;
     margin-top: 10px;
     padding: 10px;
-    border: 1px solid #ff0000;
+    border: 1px solid #D9534F;
     border-radius: 5px;
-    background: #ffe6e6;
+    background: #FFE6E6;
+    text-align: center;
 }
 
 #register-success {
-    color: #008000;
+    color: #4CAF50;
     margin-top: 10px;
     padding: 10px;
-    border: 1px solid #008000;
+    border: 1px solid #4CAF50;
     border-radius: 5px;
-    background: #e6ffe6;
+    background: #E8F5E9;
+    text-align: center;
 }
 
 .hidden {
@@ -60,13 +77,21 @@
 p {
     text-align: center;
     margin-top: 20px;
+    color: #5A3E36;
 }
 
 p a {
-    color: #f39c12;
+    color: #E3B23C;
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 p a:hover {
     text-decoration: underline;
+    color: #D49C2E;
+}
+
+footer p {
+    color: #F5F1E3;
+    margin-top: 0px;
 }

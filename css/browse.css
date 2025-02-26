@@ -7,23 +7,72 @@
     padding: 10px;
     width: 70%;
     max-width: 400px;
+    border: 1px solid #C4B7A8;
+    border-radius: 5px;
+    background: #FFF;
+    color: #5A3E36;
+}
+
+#search-bar input:focus {
+    border-color: #E3B23C;
 }
 
 #search-bar button {
     padding: 10px 20px;
+    border-color: #E3B23C;
+    color: #5A3E36;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#search-bar button:hover {
+    background: #D49C2E;
+}
+
+#search-bar button:active {
+    background: #F0C86E;
 }
 
 #filters {
     margin: 20px 0;
+    text-align: center;
 }
 
 #filters label {
     margin-right: 10px;
+    color: #5A3E36;
 }
 
 #filters select, #filters button {
-    padding: 5px;
+    padding: 5px 10px;
     margin-right: 10px;
+    border: 1px solid #C4B7A8;
+    border-radius: 5px;
+    background: #FFF;
+    color: #5A3E36;
+    cursor: pointer;
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+#filters select:focus, #filters button:focus {
+    border-color: #E3B23C;
+    outline: none;
+}
+
+#filters button {
+    background: #E3B23C;
+    color: #5A3E36;
+    border: none;
+}
+
+#filters button:hover {
+    background: #D49C2E;
+}
+
+#filters button:active {
+    background: #F0C86E;
 }
 
 .browse-review-grid {
@@ -33,23 +82,31 @@
 }
 
 .browse-review-card {
-    border: 1px solid #ddd;
+    border: 1px solid #C4B7A8;
     padding: 15px;
     border-radius: 5px;
+    background: #fff;
+    color: #5A3E36;
+    transition: box-shadow 0.3s ease;
+}
+
+.browse-review-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .browse-review-card h3 {
     margin-bottom: 10px;
+    color: #5A3E36;
 }
 
 .browse-review-card .rating {
-    color: #f39c12;
+    color: #E3B23C;
 }
 
 .browse-review-card footer {
     margin-top: 10px;
     font-size: 0.9em;
-    color: #666;
+    color: #A37C40;
 }
 
 .browse-pages {
@@ -60,9 +117,10 @@
 .browse-pages a {
     margin: 0 5px;
     text-decoration: none;
-    color: #333;
+    color: #5A3E36;
+    transition: color 0.3s ease;
 }
 
 .browse-pages a:hover {
-    color: #f39c12
+    color: #E3B23C
 }

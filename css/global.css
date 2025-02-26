@@ -9,11 +9,12 @@ body {
     line-height: 1.6;
     padding: 0px;
     background: #F5F1E3;
+    color: #5A3E36;
 }
 
 header {
     background: #5A3E36;
-    color: #fff;
+    color: #F5F1E3;
     padding: 10px 0;
     text-align: center;
 }
@@ -33,29 +34,46 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #fff;
+    color: #F5F1E3;
     text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #E3B23C;
 }
 
 .input-field {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid #ddd;
+    border: 1px solid #C4B7A8;
     border-radius: 5px;
+    background: #FFF;
+    color: #5A3E36
+}
+
+.input-field:focus {
+    border-color: #E3B23C;
+    outline: none;
 }
 
 .button {
-    background: #f39c12;
-    color: #fff;
+    background: #E3B23C;
+    color: #5A3E36;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background 0.3s ease;
 }
 
 .button:hover {
-    background: #000;
+    background: #D49C2E;
+}
+
+.button:active {
+    background: #F0C86E;
 }
 
 footer {
@@ -63,7 +81,7 @@ footer {
     margin-top: 20px;
     padding: 10px 0;
     background: #5A3E36;
-    color: #fff;
+    color: #F5F1E3;
 }
 
 @media (min-width: 768px) {
@@ -74,4 +92,26 @@ footer {
 
 .textarea-field {
     resize: vertical;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #C4B7A8;
+    border-radius: 5px;
+    background: #FFF;
+    color: #5A3E36;
+}
+
+.textarea-field:focus {
+    border-color: #E3B23C;
+    outline: none;
+}
+
+a {
+    color: #E3B23C;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover{
+    color: #D49C2E;
 }
