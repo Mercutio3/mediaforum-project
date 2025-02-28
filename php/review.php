@@ -10,10 +10,12 @@ if(isset($_GET["id"])){
 
     try {
         $stmt = $conn->prepare("
-            SELECT reviews.*, users.username
+            SELECT reviews.*, users.username, COUNT(likes.id) AS likes
             FROM reviews 
             JOIN users ON reviews.user_id = users.id
+            LEFT JOIN likes ON reviews.id = likes.review_id
             WHERE reviews.id = :id
+            GROUP BY reviews.id
         ");
         $stmt->execute(["id" => $reviewId]);
         $review = $stmt->fetch(PDO::FETCH_ASSOC);

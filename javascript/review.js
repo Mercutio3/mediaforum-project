@@ -14,12 +14,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const reviewCommentCount = document.getElementById("review-comment-count");
     const commentList = document.getElementById("review-comments");
     const commentForm = document.getElementById("review-comment-form");
+    const likeButton = document.getElementById("like-button");
 
+    let isLiked = false;
+
+    //Get review ID
     function getReviewId() {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get("id");
     }
 
+    //Get review details
     async function fetchReview(reviewId){
         try{
             const response = await fetch(`../php/review.php?id=${reviewId}`);
@@ -28,15 +33,76 @@ document.addEventListener("DOMContentLoaded", function () {
             if(data.success){
                 return data;
             } else {
-                console.error("Could not fetch review:", data.message);
+                console.error("Could not fetch review: ", data.message);
                 return null;
             }
         } catch(error) {
-            console.error("Error fetching review:", error);
+            console.error("Error fetching review: ", error);
             return null;
         }
     }
 
+    //Check if user has already liked review
+    async function checkIfLiked(reviewId){
+        try {
+            const response = await fetch(`../php/check-like.php?review_id=${reviewId}`);
+            const data = await response.json();
+            return data.liked;
+        } catch (error) {
+            console.error("Error checking like: ", error);
+            return false;
+        }
+    }
+
+    //Like 
+    async function likeReview(reviewId){
+        try {
+            const response = await fetch(`../php/like.php?review_id=${reviewId}`, {
+                method: "POST",
+            });
+            const data = await response.json();
+
+            if(data.success) {
+                isLiked = true;
+                likeButton.textContent = "Unlike";
+                updateLikeCount(1);
+            } else {
+                alert(data.message || "Failed to like.");
+            }
+        } catch (error) {
+            console.error("Error liking:", error);
+            alert("Error occured, try again.");
+        }
+    }
+
+    //Unlike
+    async function unlikeReview(reviewId){
+        try {
+            const response = await fetch(`../php/unlike.php?review_id=${reviewId}`, {
+                method: "POST",
+            });
+            const data = await response.json();
+
+            if(data.success) {
+                isLiked = false;
+                likeButton.textContent = "Like";
+                updateLikeCount(-1);
+            } else {
+                alert(data.message || "Failed to unlike.");
+            }
+        } catch (error) {
+            console.error("Error unliking:", error);
+            alert("Error occured, try again.");
+        }
+    }
+
+    //Update like count
+    function updateLikeCount(change){
+        const likeCount = parseInt(reviewLikes.textContent);
+        reviewLikes.textContent = likeCount + change;
+    }
+
+    //Display review details
     function displayReviewDetails(review){
         console.log("Review details:", review);
         reviewTitle.textContent = review.title;
@@ -61,11 +127,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 reviewImage.style.display = "none";
             }
         } else {
-            console.error("Reviewimge element not found in DOM.");
+            console.error("reviewImage not found in DOM.");
         }
         
     }
 
+    //Display comments
     function displayComments(comments) {
         console.log("Displaying comments:", comments);
         if (comments && comments.length > 0){
@@ -85,10 +152,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const reviewId = getReviewId();
     if(reviewId) {
-        fetchReview(reviewId).then(data => {
+        fetchReview(reviewId).then(async data => {
             if(data) {
                 displayReviewDetails(data.review);
                 displayComments(data.comments);
+
+                isLiked = await checkIfLiked(reviewId);
+                likeButton.textContent = isLiked ? "Unlike" : "Like";
             } else {
                 reviewTitle.textContent = "Reviwe not found.";
             }
@@ -97,6 +167,16 @@ document.addEventListener("DOMContentLoaded", function () {
         reviewTitle.textContent = "Invalid Review ID.";
     }
 
+    //Handle like-button clicking
+    likeButton.addEventListener("click", async function (event) {
+        if(isLiked) {
+            await unlikeReview(reviewId);
+        } else {
+            await likeReview(reviewId);
+        }
+    });
+
+    //Handle comment submission
     commentForm.addEventListener("submit", async function (event) {
         event.preventDefault();
 
