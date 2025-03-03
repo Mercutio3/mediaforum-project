@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if(!isset($_SESSION["user_id"])) {
+    header("Location: login.html");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang = "en">
     <head>
@@ -16,7 +25,7 @@
                     <li><a href="browse.html">Browse</a></li>
                     <li><a href="search.html">Search</a></li>
                     <li><a href="submit.php">Submit</a></li>
-                    <li><a href="notifications.html">Notifications</a></li>
+                    <li><a href="notifications.php">Notifications</a></li>
                     <li><a href="profile.php">Profile</a></li>
                     <li><a href="account.php">Account</a></li>
                     <li><a href="about.html">About/Contact</a></li>
@@ -30,7 +39,6 @@
                 <button class="button-filter active" data-filter="all">All</button>
                 <button class="button-filter" data-filter="likes">Likes</button>
                 <button class="button-filter" data-filter="comments">Comments</button>
-                <button class="button-filter" data-filter="replies">Replies</button>
             </section>
             
             <section id="notifications">

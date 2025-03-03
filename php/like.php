@@ -40,6 +40,23 @@ try{
     //Update like count
     $stmt = $conn->prepare("UPDATE reviews SET likes = likes + 1 WHERE id = :review_id");
     $stmt->execute(["review_id" => $reviewId]);
+
+    //Get review owner ID
+    $stmt = $conn->prepare("SELECT user_id FROM reviews WHERE id = :review_id");
+    $stmt->execute(["review_id" => $reviewId]);
+    $reviewOwner = $stmt->fetch();
+
+    if($reviewOwner){
+        $stmt = $conn->prepare("
+            INSERT INTO notifications (user_id, type, source_user_id, review_id, content)
+            VALUES (:user_id, 'like', :source_user_id, :review_id, NULL)
+        ");
+        $stmt->execute([
+            "user_id" => $reviewOwner["user_id"],
+            "source_user_id" => $userId,
+            "review_id" => $reviewId,
+        ]);
+    }
     
     error_log("Like added");
     echo json_encode(["success" => true]);
