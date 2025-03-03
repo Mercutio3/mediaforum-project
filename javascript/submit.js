@@ -1,8 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
+    //Get HTML elements
     const reviewForm = document.getElementById("submission-form");
     const reviewPreview = document.getElementById("review-preview");
 
+    //Handle 
     reviewForm.addEventListener("input", function () {
+        //Get HTML form elements
         const mediaTitle = document.getElementById("media-title").value;
         const reviewTitle = document.getElementById("review-title").value;
         const rating = document.getElementById("rating").value;
@@ -10,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const mediaCreator = document.getElementById("media-creator").value;
         const mediaYear = document.getElementById("media-year").value;
 
+        //Insert review details into HTML review preview for displaying
         reviewPreview.innerHTML = `
             <h4>${reviewTitle}</h4>
             <p><strong>Media:</strong> ${mediaTitle}</p>
@@ -20,9 +24,11 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
     });
 
+    //Handle review submission button
     reviewForm.addEventListener("submit", function(event) {
         event.preventDefault();
         
+        //Get HTML form elements
         const mediaTitle = document.getElementById("media-title").value;
         const reviewTitle = document.getElementById("review-title").value;
         const rating = document.getElementById("rating").value;
@@ -30,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const mediaCreator = document.getElementById("media-creator").value;
         const mediaYear = document.getElementById("media-year").value;
 
+        //Case where a field is left blank
         if(!mediaTitle || !reviewTitle || !rating || !reviewContent || !mediaCreator || !mediaYear) {
             event.preventDefault();
             alert("Some required fields are missing.");
@@ -43,11 +50,11 @@ document.addEventListener("DOMContentLoaded", function () {
             body: formData,
         })
         .then(response => {
-            console.log("Raw response:", response);
+            console.log("Raw response: ", response);
             return response.text();
         })
         .then(text => {
-            console.log("Response text:", text);
+            console.log("Response text: ", text);
             try{
                 const data = JSON.parse(text);
                 if(data.success) {
@@ -58,12 +65,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     alert("Something went wrong. Please try again.");
                 }
             } catch (error){
-                console.error("Failed to parse JSON:", text);
-                alert("An error occured. Pls try again.");
+                console.error("Failed to parse JSON: ", text);
+                alert("An error occured. Please try again.");
             }
         })
         .catch(error => {
-            console.error("Error:", error);
+            console.error("Error: ", error);
             alert("An error occured. Please try again.");
         });
     });

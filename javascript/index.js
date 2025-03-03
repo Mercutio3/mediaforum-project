@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    //Display trending reviews
+    //Insert trending review details into HTML review card article for displaying
     function showTrendingReviews(reviews) {
         reviewGrid.innerHTML = reviews.map(review => `
             <article class="trending-review-card">
@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
         `).join("");
     }
 
+    //Call display function
     getTrendingReviews().then(reviews => {
         showTrendingReviews(reviews);
     });

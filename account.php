@@ -1,4 +1,5 @@
 <?php
+//Make the page only accessible to logged-in users.
 session_start();
 if(!isset($_SESSION["user_id"])){
     header("Location: login.html");
@@ -8,6 +9,9 @@ $username = $_SESSION["username"];
 $email = $_SESSION["email"];
 ?>
 
+<!-- This is the account page. A logged-in user's accont page is only visible
+ to them. Here they can change their profile info, password, privacy, and
+ delete their account. -->
 <!DOCTYPE html>
 <html lang = "en">
     <head>
@@ -40,6 +44,7 @@ $email = $_SESSION["email"];
                 <p>Username: <?php echo htmlspecialchars($username); ?></p>
                 <p>Email: <?php echo htmlspecialchars($email); ?></p>
             </section>
+
             <section id="edit-account">
                 <h3>Change Profile Info</h3>
                 <form id="edit-account-form" enctype="multipart/form-data">
@@ -50,6 +55,7 @@ $email = $_SESSION["email"];
                     <button type="submit">Save</button>
                 </form>
             </section>
+
             <section id="account-password">
                 <h3>Change Password</h3>
                 <form id="account-password-form">
@@ -62,6 +68,7 @@ $email = $_SESSION["email"];
                     <button type="submit">Change Password</button>
                 </form>
             </section>
+
             <section id="account-privacy">
                 <h3>Privacy Settings</h3>
                 <form id="account-privacy-form" action="/privacy-settings" method="POST">
@@ -76,6 +83,7 @@ $email = $_SESSION["email"];
                     <button type="submit">Save</button>
                 </form>
             </section>
+
             <section id="delete-account">
                 <h3>Delete Account</h3>
                 <button id="delete-account-button">Delete</button>

@@ -1,17 +1,23 @@
 document.addEventListener("DOMContentLoaded", function () {
+    //Get HTML elements
     const registerForm = document.getElementById("register-form");
     const registerError = document.getElementById("register-error");
     const registerSuccess = document.getElementById("register-success");
 
+    //Ensure proper form submission
     function validateForm(username, email, password, confirmPassword){
+        
+        // Case where a field is left blank
         if(!username || !email || !password || !confirmPassword){
             return "Some fields are empty.";
         }
 
+        // Case where passwords do not match
         if(password !== confirmPassword){
             return "Passwords must match.";
         }
 
+        // Ensure e-mail format "example@example.example"
         if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
             return "Invalid e-mail address.";
         }
@@ -19,12 +25,14 @@ document.addEventListener("DOMContentLoaded", function () {
         return null;
     }
 
+    //Display error
     function displayError(message){
         registerError.textContent = message;
         registerError.classList.remove("hidden");
         registerSuccess.classList.add("hidden");
     }
 
+    //If all went well, redirect user to login page
     function displaySuccess(message){
         registerError.classList.add("hidden");
         registerSuccess.classList.remove("hidden");
@@ -34,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 2000);
     }
 
+    //Handle register form submission
     registerForm.addEventListener("submit", function (event){
         event.preventDefault();
 

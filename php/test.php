@@ -1,5 +1,6 @@
 <?php
-$password = "test123"; // Plain text password
+//Small script to test password hashing.
+$password = "test123";
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 echo "Hashed password: " . $hashedPassword;
 ?>

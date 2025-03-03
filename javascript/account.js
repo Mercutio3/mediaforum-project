@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Handle form submission for profile editing
     document.getElementById("edit-account-form").addEventListener("submit", function (event){
         event.preventDefault();
         const formData = new FormData(this);
@@ -21,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    // Handle form submission for password changing
     document.getElementById("account-password-form").addEventListener("submit", function (event){
         event.preventDefault();
         const formData = new FormData(this);
@@ -32,9 +34,9 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json())
         .then(data => {
             if(data.success) {
-                alert("Password updated successfully.");
+                alert("Password updated successfully!");
             } else {
-                alert(data.message || "Failed to update.");
+                alert(data.message || "Could not update password.");
             }
         })
         .catch(error => {
@@ -43,8 +45,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    // Handle form submission for account deletion
     document.getElementById("delete-account-button").addEventListener("click", function () {
-        if(confirm("Are you sure? This is permanent.")){
+        if(confirm("Are you sure? This is permanent!")){
             fetch("../php/delete-account.php", {
                 method: "POST",
             })
@@ -59,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(error => {
                 console.error("Error:", error);
-                alert("ERror. try again!!");
+                alert("Error. Try again!");
             });
         }
     });

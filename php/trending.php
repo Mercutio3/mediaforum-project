@@ -3,6 +3,9 @@ header("Content-Type: application/json");
 require "config.php";
 
 try {
+    //SQL query to get trending reviews from database
+    //The "trending" reviews are the 6 with the greatest "engagement points"
+    //A like is worth one point, and a comment is worth two points
     $stmt = $conn->prepare("
         SELECT
             reviews.*,
@@ -24,6 +27,6 @@ try {
     echo json_encode(["success" => true, "reviews" => $reviews]);
 } catch (PDOException $e){
     error_log("Database error: " . $e->getMessage());
-    echo json_encode(["success" => false, "message" => "Databaser error; try again."]);
+    echo json_encode(["success" => false, "message" => "Database error. Please try again."]);
 }
 ?>

@@ -1,12 +1,13 @@
 <?php
 session_start();
-
+//Make the page only accessible to logged-in users.
 if(!isset($_SESSION["user_id"])){
     header("Location: login.html");
     exit();
 }
 ?>
 
+<!-- This is the submission page. Users enter their review details and submit. -->
 <!DOCTYPE html>
 <html lang = "en">
     <head>

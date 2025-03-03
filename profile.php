@@ -1,6 +1,6 @@
 <?php
+//Make the page only accessible to logged-in users.
 session_start();
-
 if(!isset($_SESSION["user_id"])){
     header("Location: login.html");
     exit();
@@ -11,6 +11,7 @@ require "php/config.php";
 $profileUserId = isset($_GET["user_id"]) ? intval($_GET["user_id"]) : $_SESSION["user_id"];
 
 try {
+    //Get user details from users table
     $stmt = $conn->prepare("SELECT username, bio, profile_picture FROM users WHERE id = :id");
     $stmt->execute(["id" => $profileUserId]);
     $user = $stmt->fetch();
@@ -21,12 +22,15 @@ try {
 
     $username = $user["username"];
     $bio = $user["bio"];
+
+    //If a user doesn't have a profile picture, display the default
     $profilePicture = $user["profile_picture"] ? $user["profile_picture"] : "images/default-pp.png";
 } catch (PDOException $e) {
     die("Error fetching user data: " . $e->getMessage());
 }
 
 try {
+    //Get all reviews (and their details) posted by a user
     $stmt = $conn->prepare("SELECT id, title, media_type, rating, summary, created_at FROM reviews WHERE user_id = :user_id ORDER BY created_at DESC");
     $stmt->execute(["user_id" => $profileUserId]);
     $reviews = $stmt->fetchAll();
@@ -35,6 +39,7 @@ try {
 }
 ?>
 
+<!-- This is the profile page. It displays user info, statistics, and reviews posted. -->
 <!DOCTYPE html>
 <html lang = "en">
     <head>
@@ -74,6 +79,7 @@ try {
                     <?php endif; ?>
                 </div>
             </section>
+
             <section id="profile-stats">
                 <h2>User Stats</h2>
                 <div class="user-stats">
@@ -112,6 +118,7 @@ try {
                     <?php endforeach; ?>
                 </div>
             </section>
+
             <section id="profile-activity">
                 <h2>User Activity</h2>
                 <ul class="user-activity">

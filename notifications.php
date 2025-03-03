@@ -1,12 +1,14 @@
 <?php
+//Make the page only accessible to logged-in users.
 session_start();
-
 if(!isset($_SESSION["user_id"])) {
     header("Location: login.html");
     exit();
 }
 ?>
 
+<!-- This is the notifications page. Notifications for when your reviews are liked or
+ commented on appear here. You can mark them as read or filter them by type. -->
 <!DOCTYPE html>
 <html lang = "en">
     <head>
@@ -41,9 +43,7 @@ if(!isset($_SESSION["user_id"])) {
                 <button class="button-filter" data-filter="comments">Comments</button>
             </section>
             
-            <section id="notifications">
-                
-            </section>
+            <section id="notifications"></section>
         </main>
         <footer>
             <p>&copy 2025 Santiago Ham</p>

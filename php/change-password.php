@@ -1,12 +1,12 @@
 <?php
 session_start();
+require "config.php";
 
+//Check if user is logged in
 if(!isset($_SESSION["user_id"])){
     echo json_encode(["success" => false, "message" => "Not logged in."]);
     exit();
 }
-
-require "config.php";
 
 if($_SERVER["REQUEST_METHOD"] === "POST"){
     $userId = $_SESSION["user_id"];
@@ -14,16 +14,19 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
     $newPassword = $_POST["new-password"];
     $repeatNewPassword = $_POST["repeat-new-password"];
 
+    //Case where passwords do not match
     if($newPassword !== $repeatNewPassword){
         echo json_encode(["success" => false, "message" => "New passwords don't match."]);
         exit();
     }
 
     try {
+        //SQL query to get a user's password from database
         $stmt = $conn->prepare("SELECT password FROM users WHERE id = :id");
         $stmt->execute(["id" => $userId]);
         $user = $stmt->fetch();
 
+        //If current password correct, SQL query to update password
         if($user && password_verify($currentPassword, $user["password"])){
             $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
             $stmt = $conn->prepare("UPDATE users SET password = :password WHERE id = :id");
@@ -34,12 +37,12 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 
             echo json_encode(["success" => true]);
         } else {
-            echo json_encode(["success" => false, "message" => "current password incorrect."]);
+            echo json_encode(["success" => false, "message" => "Current password incorrect."]);
         }
     } catch(PDOException $e) {
-        echo json_encode(["success" => false, "message" => "error updating password."]);
+        echo json_encode(["success" => false, "message" => "Error updating password."]);
     }
 } else {
-    echo json_encode(["success" => false, "message" => "INvalid request method."]);
+    echo json_encode(["success" => false, "message" => "Invalid request method."]);
 }
 ?>

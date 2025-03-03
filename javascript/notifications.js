@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function (){
         }
     }
 
-    //Show notifications
+    //Insert notification details into HTML notification article for displaying
     function displayNotifications(notifications) {
         notificationList.innerHTML = notifications.map(notification => `
             <article class="notification ${notification.is_read ? "read" : "unread"}" data-id="${notification.id}">
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function (){
         `).join("");
     }
 
-    //Toggle notification read status
+    //Toggle notification "read" status
     async function toggleRead(notificationId, isRead){
         try {
             const response = await fetch("..php/mark-notification.php", {
@@ -55,12 +55,12 @@ document.addEventListener("DOMContentLoaded", function (){
         }
     }
 
-    //Fetch notifications and display them
+    //Get notifications and display them
     getNotifications().then(notifications => {
         displayNotifications(notifications);
     });
 
-    //Handle "mark as read" button
+    //Handle "mark as read" button clicking
     notificationList.addEventListener("click", function (event) {
         if(event.target.classList.contains("mark-as-read")) {
             const notificationElement = event.target.closest(".notification");

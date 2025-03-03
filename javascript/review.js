@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+    //Get HTML elements
     const reviewTitle = document.getElementById("review-title");
     const reviewMediaType = document.getElementById("review-media-type");
     const reviewMediaTitle = document.getElementById("review-media-title");
@@ -18,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let isLiked = false;
 
-    //Get review ID
+    //Get review ID from URL
     function getReviewId() {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get("id");
@@ -54,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    //Like 
+    // Like 
     async function likeReview(reviewId){
         try {
             const response = await fetch(`../php/like.php?review_id=${reviewId}`, {
@@ -70,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert(data.message || "Failed to like.");
             }
         } catch (error) {
-            console.error("Error liking:", error);
+            console.error("Error liking: ", error);
             alert("Error occured, try again.");
         }
     }
@@ -91,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert(data.message || "Failed to unlike.");
             }
         } catch (error) {
-            console.error("Error unliking:", error);
+            console.error("Error unliking: ", error);
             alert("Error occured, try again.");
         }
     }
@@ -132,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
     }
 
-    //Display comments
+    //Insert comment details into HTML comment article for displaying
     function displayComments(comments) {
         console.log("Displaying comments:", comments);
         if (comments && comments.length > 0){
@@ -160,7 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 isLiked = await checkIfLiked(reviewId);
                 likeButton.textContent = isLiked ? "Unlike" : "Like";
             } else {
-                reviewTitle.textContent = "Reviwe not found.";
+                reviewTitle.textContent = "Review not found.";
             }
         });
     } else {
@@ -211,7 +212,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("Couldn't submit comment. Please try again.");
             }
         } catch (error){
-            console.error("Error submitting comment:", error);
+            console.error("Error submitting comment: ", error);
             alert("Error occurred. Try again.");
         }
 

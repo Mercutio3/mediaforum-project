@@ -1,3 +1,17 @@
+/*
+This is the global CSS file, used by every page. My main color palette consists
+of the following colors:
+
+1. Dark Brown (#5A3E36) for headers, footers, and text on light background.
+2. Light Cream (#F5F1E3) for main background and text on dark background.
+3. Golden Yellow (#ЕЗB23C) for accents like buttons, links, and highlights.
+    3a. A slightly darker yellow is used for hover attributes.
+    3b. A slightly lighter yellow is used for active attributes.
+4. Muted Gold (#A37C40) as a secondary, less prominent accent color.
+5. Warm Gray (#C4B7A8) for netural borders, box-shadows, and dividers.
+6. Light Brown (#D4A373) for accent borders, box-shadows, and dividers.
+*/
+
 body, h1, h2, h3, ul, li, p, form, input, button, textarea, fieldset, legend {
     padding: 0;
     margin: 0;

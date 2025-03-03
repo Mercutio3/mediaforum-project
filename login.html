@@ -1,4 +1,7 @@
-<!-- Login page. -->
+<!-- This is the login page. Login is necessary to access submit, profile,
+account and notifications pages. Trying to access any of the aforementioned
+pages while not logged in will redirect you here. You must also be logged in
+to enable liking and commenting on reviews. -->
 <!DOCTYPE html>
 <html lang = "en">
     <head>
@@ -27,7 +30,6 @@
         </header>
         <main>
             <h2>Login</h2>
-
             <form id="login-form">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
@@ -37,6 +39,7 @@
             </form>
 
             <div id="login-error" class="hidden"></div>
+            
             <p>If you don't have an account, <a href="register.html">sign up here</a>!</p>
         </main>
         <footer>

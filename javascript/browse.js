@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", function() {
+    // Get HTML elements
     const filterForm = document.getElementById("browse-filter-form");
     const reviewGrid = document.querySelector(".browse-review-grid");
 
+    // Get reviews from database
     async function fetchReviews() {
         try {
             const response = await fetch("../php/browse.php");
@@ -10,15 +12,16 @@ document.addEventListener("DOMContentLoaded", function() {
             if (data.success) {
                 return data.reviews;
             } else {
-                console.error("Failed to fetch reviews:", data.message);
+                console.error("Failed to fetch reviews: ", data.message);
                 return [];
             }
         } catch (error) {
-            console.error("Error fetching:", error);
+            console.error("Error fetching: ", error);
             return [];
         }
     }
 
+    // Insert review details into HTML review card article for displaying
     function displayReviews(reviews) {
         reviewGrid.innerHTML = reviews.map(review => `
             <article class="browse-review-card">
@@ -35,10 +38,12 @@ document.addEventListener("DOMContentLoaded", function() {
         `).join("");
     }
 
+    // Get and display reviews
     fetchReviews().then(reviews => {
         displayReviews(reviews);
     });
 
+    // Handle "apply filters"
     filterForm.addEventListener("submit", async function (event) {
         event.preventDefault();
 

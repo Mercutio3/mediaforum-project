@@ -1,17 +1,18 @@
 <?php
 session_start();
+require "config.php";
 
+//Check if user logged in
 if(!isset($_SESSION["user_id"])) {
     echo json_encode(["success" => false, "message" => "Not logged in."]);
     exit();
 }
 
-require "config.php";
-
 if ($_SERVER["REQUEST_METHOD"] === "POST"){
     $userId = $_SESSION["user_id"];
     $bio = $_POST["bio"];
 
+    //Handle profile picture upload
     $profilePictureUrl = null;
     if (isset($_FILES["profile-picture"]) && $_FILES["profile-picture"]["error"] === UPLOAD_ERR_OK){
         $uploadDir = "uploads/profile-pictures/";
@@ -25,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"){
     }
 
     try {
+        //SQL query to update a user's bio in the users table
         $stmt = $conn->prepare("UPDATE users SET bio = :bio, profile_picture = :profile_picture WHERE id = :id");
         $stmt->execute([
             "bio" => $bio,

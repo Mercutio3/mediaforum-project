@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+    //Get HTML elements
     const userPfp = document.getElementById("user-pfp");
     const userName = document.getElementById("username");
     const userBio = document.getElementById("user-bio");
@@ -7,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const userCommentCount = document.getElementById("user-comment-count");
     const userReviews = document.getElementById("user-review-list");
 
+    //Get username from URL
     function getUsername(){
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get("username");
