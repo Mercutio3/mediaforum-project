@@ -90,7 +90,6 @@ try {
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="browse.html">Browse</a></li>
-                    <li><a href="search.html">Search</a></li>
                     <li><a href="submit.php">Submit</a></li>
                     <li><a href="notifications.php">Notifications</a></li>
                     <li><a href="profile.php">Profile</a></li>
@@ -157,7 +156,7 @@ try {
                             <footer>
                                 <span>Published on <?php echo date("F j, Y", strtotime($review["created_at"])); ?></span>
                                 <?php if ($profileUserId === $_SESSION["user_id"]): ?>
-                                    <a href="editReview.html?id=<?php echo $review["id"]; ?>">Edit</a>
+                                    <a href="edit-review.php?id=<?php echo $review["id"]; ?>">Edit</a>
                                     <button class="delete-review">Delete</button>
                                 <?php endif; ?>
                             </footer>

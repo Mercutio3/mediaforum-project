@@ -2,11 +2,13 @@ document.addEventListener("DOMContentLoaded", function() {
     // Get HTML elements
     const filterForm = document.getElementById("browse-filter-form");
     const reviewGrid = document.querySelector(".browse-review-grid");
+    const searchForm = document.getElementById("search-form");
 
     // Get reviews from database
-    async function fetchReviews() {
+    async function fetchReviews(query = "") {
         try {
-            const response = await fetch("../php/browse.php");
+            const url = query ? `../php/browse.php?query=${encodeURIComponent(query)}` : "../php/browse.php";
+            const response = await fetch(url);
             const data = await response.json();
 
             if (data.success) {
@@ -67,4 +69,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
         displayReviews(filteredReviews);
     });
+
+    //Handle searching
+    searchForm.addEventListener("submit", async function(event) {
+        event.preventDefault();
+        const query = document.getElementById("search-query").value.trim();
+        const reviews = await fetchReviews(query);
+        displayReviews(reviews);
+    });
+
+    //Display all reviews when search bar empty
+    const searchInput = document.getElementById("search-query");
+    searchInput.addEventListener("input", async function() {
+        if(searchInput.value.trim() === "") {
+            const reviews = await fetchReviews();
+            displayReviews(reviews);
+        }
+    })
 });

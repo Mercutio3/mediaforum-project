@@ -1,0 +1,73 @@
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #C4B7A8;
+    border-radius: 5px;
+    background: #FFF;
+    color: #5A3E36;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #5A3E36
+}
+
+#edit-review-form fieldset {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #C4B7A8;
+    border-radius: 5px;
+    background: #FFF;
+}
+
+#edit-review-form legend {
+    font-weight: bold;
+    padding: 0 10px;
+    color: #5A3E36;
+}
+
+#edit-review-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #5A3E36;
+}
+
+#edit-review-form input[type="text"], #edit-review-form input[type="number"], #edit-review-form select, #edit-review-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #C4B7A8;
+    border-radius: 5px;
+    background: #FFF;
+    color: #5A3E36;
+    transition: border-color 0.3s ease;
+}
+
+#edit-review-form input[type="text"]:focus, #edit-review-form input[type="number"]:focus, #edit-review-form select:focus, #edit-review-form textarea:focus{
+    border-color: #E3B23C;
+    outline: none;
+}
+
+#edit-review-form textarea {
+    resize: vertical;
+}
+
+#edit-review-form button {
+    background: #E3B23C;
+    color: #5A3E36;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#edit-review-form button:hover {
+    background: #D49C2E;
+}
+
+#edit-review-form button:active {
+    background: #F0C86E;
+}

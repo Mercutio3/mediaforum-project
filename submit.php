@@ -50,10 +50,10 @@ if(!isset($_SESSION["user_id"])){
                     <label for="media-title">Title:</label>
                     <input type="text" id="media-title" name="media_title" placeholder="Enter title..." required>
 
-                    <label for="media-title">Creator:</label>
+                    <label for="media-creator">Creator:</label>
                     <input type="text" id="media-creator" name="media_creator" placeholder="Enter creator..." required>
 
-                    <label for="media-title">Year:</label>
+                    <label for="media-year">Year:</label>
                     <input type="number" id="media-year" name="media_year" min="0" max="2025" placeholder="Enter year..." required>
                 </fieldset>
                 

@@ -28,7 +28,6 @@ $email = $_SESSION["email"];
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="browse.html">Browse</a></li>
-                    <li><a href="search.html">Search</a></li>
                     <li><a href="submit.php">Submit</a></li>
                     <li><a href="notifications.php">Notifications</a></li>
                     <li><a href="profile.php">Profile</a></li>

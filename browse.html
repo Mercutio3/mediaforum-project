@@ -15,7 +15,6 @@
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="browse.html">Browse</a></li>
-                    <li><a href="search.html">Search</a></li>
                     <li><a href="submit.php">Submit</a></li>
                     <li><a href="notifications.php">Notifications</a></li>
                     <li><a href="profile.php">Profile</a></li>
@@ -27,8 +26,8 @@
         </header>
         <main>
             <section id="search-bar">
-                <form action="/search" method="GET">
-                    <input type="text" name="query" placeholder="Search..." aria-label="Search reviews">
+                <form id="search-form">
+                    <input type="text" id="search-query" name="query" placeholder="Search for reviews..." aria-label="Search reviews">
                     <button type="submit">Search</button>
                 </form>
             </section>
