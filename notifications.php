@@ -39,8 +39,8 @@ if(!isset($_SESSION["user_id"])) {
             <h2>Notifications</h2>
             <section id="notification-filters">
                 <button class="button-filter active" data-filter="all">All</button>
-                <button class="button-filter" data-filter="likes">Likes</button>
-                <button class="button-filter" data-filter="comments">Comments</button>
+                <button class="button-filter" data-filter="like">Likes</button>
+                <button class="button-filter" data-filter="comment">Comments</button>
             </section>
             
             <section id="notifications"></section>

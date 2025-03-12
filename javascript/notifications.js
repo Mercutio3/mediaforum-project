@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function (){
     const notificationList = document.getElementById("notifications");
+    const filters = document.querySelectorAll(".button-filter")
 
     //Get notifications from database
     async function getNotifications() {
@@ -8,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function (){
             const data = await response.json();
 
             if(data.success) {
+                console.log("Fetched Notification: ", data.notifications);
                 return data.notifications;
             } else {
                 console.error("Couldn't fetch notifications: ", data.message);
@@ -20,8 +22,15 @@ document.addEventListener("DOMContentLoaded", function (){
     }
 
     //Insert notification details into HTML notification article for displaying
-    function displayNotifications(notifications) {
-        notificationList.innerHTML = notifications.map(notification => `
+    function displayNotifications(notifications, filter = "all") {
+        const filteredNotifications = notifications.filter(notification => {
+            if(filter === "all") return true;
+            return notification.type === filter;
+        });
+
+        console.log("Filtered notifications: ", filteredNotifications);
+
+        notificationList.innerHTML = filteredNotifications.map(notification => `
             <article class="notification ${notification.is_read ? "read" : "unread"}" data-id="${notification.id}">
                 <div class="notification-content">
                     <p><strong>${notification.source_username}</strong> ${notification.type === "like" ? "liked" : "commented on"} your review: <a href="review.html?id=${notification.review_id}">${notification.review_title}</a></p>
@@ -54,6 +63,17 @@ document.addEventListener("DOMContentLoaded", function (){
             console.error("Error updating notification: ", error);
         }
     }
+
+    filters.forEach(button => {
+        button.addEventListener("click", function () {
+            filters.forEach(btn => btn.classList.remove("active"));
+            this.classList.add("active");
+            const filter = this.getAttribute("data-filter")
+            getNotifications().then(notifications => {
+                displayNotifications(notifications, filter);
+            });
+        });
+    });
 
     //Get notifications and display them
     getNotifications().then(notifications => {

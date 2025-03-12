@@ -25,6 +25,39 @@ try {
 
     //If a user doesn't have a profile picture, display the default
     $profilePicture = $user["profile_picture"] ? $user["profile_picture"] : "images/default-pp.png";
+
+    //Get likes received for past 7 days
+    $stmt = $conn->prepare("
+        SELECT DATE(likes.created_at) AS date, COUNT(likes.id) AS likes_received
+        FROM likes
+        JOIN reviews ON likes.review_id = reviews.id
+        WHERE reviews.user_id = :user_id AND likes.created_at >= NOW() - INTERVAL 7 DAY
+        GROUP BY DATE(likes.created_at)
+    ");
+    $stmt->execute(["user_id" => $profileUserId]);
+    $likesReceived = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $likesReceivedCount = array_sum(array_column($likesReceived, "likes_received"));
+
+    //Get likes given for past 7 days
+    $stmt = $conn->prepare("
+        SELECT DATE(created_at) AS date, COUNT(id) AS likes_given
+        FROM likes
+        WHERE user_id = :user_id AND created_at >= NOW() - INTERVAL 7 DAY
+        GROUP BY DATE(created_at)
+    ");
+    $stmt->execute(["user_id" => $profileUserId]);
+    $likesGiven = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $likesGivenCount = array_sum(array_column($likesGiven, "likes_given"));
+
+    //Get reviews posted for past 7 days
+    $stmt = $conn->prepare("
+        SELECT DATE(created_at) AS date, COUNT(id) AS reviews_posted
+        FROM reviews
+        WHERE user_id = :user_id AND created_at >= NOW() - INTERVAL 7 DAY
+        GROUP BY DATE(created_at)
+    ");
+    $stmt->execute(["user_id" => $profileUserId]);
+    $reviewsPosted = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     die("Error fetching user data: " . $e->getMessage());
 }
@@ -48,6 +81,7 @@ try {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="css/global.css">
         <link rel="stylesheet" type="text/css" href="css/profile.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
     <body>
         <header>
@@ -85,15 +119,28 @@ try {
                 <div class="user-stats">
                     <div class="user-stat">
                         <h3>Likes Received</h3>
-                        <p>666</p>
+                        <p><?php echo $likesReceivedCount; ?></p>
                     </div>
                     <div class="user-stat">
                         <h3>Likes Given</h3>
-                        <p>555</p>
+                        <p><?php echo $likesGivenCount; ?></p>
                     </div>
                     <div class="user-stat">
                         <h3>Reviews Posted</h3>
                         <p><?php echo count($reviews); ?></p>
+                    </div>
+                </div>
+                <br>
+                <h2>Activity (Last 7 Days)</h2>
+                <div class="stats-charts">
+                    <div class="stat-chart-div">
+                        <canvas id="likesReceivedChart"></canvas>
+                    </div>
+                    <div class="stat-chart-div">
+                        <canvas id="likesGivenChart"></canvas>
+                    </div>
+                    <div class="stat-chart-div">
+                        <canvas id="reviewsPostedChart"></canvas>
                     </div>
                 </div>
             </section>
@@ -102,7 +149,7 @@ try {
                 <h2>Reviews</h2>
                 <div class="profile-reviews-grid">
                     <?php foreach ($reviews as $review): ?>
-                        <article class="profile-review-card">
+                        <article class="profile-review-card" data-id="<?php echo $review["id"]; ?>">
                             <h3><a href="review.html?id=<?php echo $review["id"]; ?>"><?php echo htmlspecialchars($review["title"]); ?></a></h3>
                             <p class="media-type"><?php echo htmlspecialchars($review["media_type"]); ?></p>
                             <p class="rating"><?php echo $review["rating"]; ?>/5</p>
@@ -111,7 +158,7 @@ try {
                                 <span>Published on <?php echo date("F j, Y", strtotime($review["created_at"])); ?></span>
                                 <?php if ($profileUserId === $_SESSION["user_id"]): ?>
                                     <a href="editReview.html?id=<?php echo $review["id"]; ?>">Edit</a>
-                                    <a href="deleteReview.html?id=<?php echo $review["id"]; ?>">Delete</a>
+                                    <button class="delete-review">Delete</button>
                                 <?php endif; ?>
                             </footer>
                         </article>
@@ -131,6 +178,13 @@ try {
         <footer>
             <p>&copy 2025 Santiago Ham</p>
         </footer>
-        <script src=""></script>
+        <script>
+            const userStats = {
+                likesGiven: <?php echo json_encode($likesGiven); ?>,
+                likesReceived: <?php echo json_encode($likesReceived); ?>,
+                reviewsPosted: <?php echo json_encode($reviewsPosted); ?>
+            };
+        </script>
+        <script src="javascript/profile.js"></script>
     </body>
 </html>

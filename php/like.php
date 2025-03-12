@@ -1,11 +1,13 @@
 <?php
+//Implementing thsi feature gave me a lot of trouble so I left behind some of
+//the debug statements.
 session_start();
 header("Content-Type: application/json");
 require "config.php";
 
 //Check if user logged in
 if(!isset($_SESSION["user_id"])){
-    echo json_encode(["success" => false, "message" => "Not logged in."]);
+    echo json_encode(["success" => false, "message" => "You must be logged in to like a review."]);
     exit();
 }
 
@@ -27,7 +29,7 @@ try{
     $existingLike = $stmt->fetch();
 
     if($existingLike){
-        error_log("User already liked review");
+        error_log("User already liked review"); //For debugging
         echo json_encode(["success" => false, "message" => "Already liked this review!"]);
         exit();
     }
@@ -46,7 +48,7 @@ try{
     $reviewOwner = $stmt->fetch();
 
     //SQL query to add a notification for the review owner
-    if($reviewOwner){
+    if($reviewOwner && $reviewOwner["user_id"] !== $userId){
         $stmt = $conn->prepare("
             INSERT INTO notifications (user_id, type, source_user_id, review_id, content)
             VALUES (:user_id, 'like', :source_user_id, :review_id, NULL)
@@ -61,7 +63,7 @@ try{
     error_log("Like added"); //For debugging
     echo json_encode(["success" => true]);
 } catch (PDOException $e) {
-    error_log("Database error: " . $e->getMessage());
+    error_log("Database error: " . $e->getMessage()); //For debugging
     echo json_encode(["success" => false, "message" => "Database error. Try again."]);
 }
 ?>

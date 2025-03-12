@@ -10,7 +10,7 @@ if(!issset($_SESSION["user_id"])){
 }
 
 $rawData = file_get_contents("php://input");
-$data = json_encode($rawData, true);
+$data = json_decode($rawData, true);
 
 if(!isset($data["review_id"]) || !isset($data["content"])){
     echo json_encode(["success" => false, "message" => "Review ID and content required."]);
@@ -36,7 +36,7 @@ try {
     $stmt->execute(["review_id" => $reviewId]);
     $reviewOwner = $stmt->fetch();
 
-    if($reviewOwner) {
+    if($reviewOwner && $reviewOwner["user_id"] !== $userId) {
         //SQL query to add notification to notifications table
         $stmt = $conn->prepare("
             INSERT INTO notificiations (user_id, type, source_user_id, review_id, content)
