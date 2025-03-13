@@ -4,7 +4,7 @@ header("Content-Type: application/json");
 require "config.php";
 
 //Check if user logged in
-if(!issset($_SESSION["user_id"])){
+if(!isset($_SESSION["user_id"])){
     echo json_encode(["success" => false, "message" => "Not logged in."]);
     exit();
 }
@@ -39,7 +39,7 @@ try {
     if($reviewOwner && $reviewOwner["user_id"] !== $userId) {
         //SQL query to add notification to notifications table
         $stmt = $conn->prepare("
-            INSERT INTO notificiations (user_id, type, source_user_id, review_id, content)
+            INSERT INTO notifications (user_id, type, source_user_id, review_id, content)
             VALUES (:user_id, 'comment', :source_user_id, :review_id, :content)
         ");
         $stmt->execute([

@@ -19,12 +19,15 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
         //Login required to access submit, profile, notifications, and account
         //Logging in is also necessary to like and comment on reviews
         if($user && password_verify($password, $user["password"])) {
-            session_start();
-            $_SESSION["user_id"] = $user["id"];
-            $_SESSION["username"] = $user["username"];
-            $_SESSION["email"] = $user["email"];
-
-            echo json_encode(["success" => true]);
+            if($user["verified"]){
+                session_start();
+                $_SESSION["user_id"] = $user["id"];
+                $_SESSION["username"] = $user["username"];
+                $_SESSION["email"] = $user["email"];
+                echo json_encode(["success" => true]);
+            } else {
+                echo json_encode(["success" => false, "message" => "You must verify your email before logging in."]);
+            }
         } else {
             echo json_encode(["success" => false, "message" => "Invalid username or password."]);
         }

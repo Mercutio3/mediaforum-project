@@ -36,10 +36,11 @@ document.addEventListener("DOMContentLoaded", function () {
     function displaySuccess(message){
         registerError.classList.add("hidden");
         registerSuccess.classList.remove("hidden");
+        registerSuccess.textContent = message;
 
-        setTimeout(() => {
-            window.location.href = "login.html";
-        }, 2000);
+        //setTimeout(() => {
+        //    window.location.href = "login.html";
+        //}, 2000);
     }
 
     //Handle register form submission
@@ -73,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json())
         .then(data => {
             if(data.success) {
-                displaySuccess();
+                displaySuccess(data.message || "Signup successful. Check your email to verify your account.");
             } else {
                 displayError(data.message || "Signup failed. Please try again.")
             }

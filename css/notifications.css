@@ -80,3 +80,13 @@
 .mark-as-read:hover {
     background: #7A5E56;
 }
+
+#no-notifications {
+    text-align: center;
+    color: #5A3E36;
+    margin-top: 20px;
+}
+
+.hidden {
+    display: none;
+}

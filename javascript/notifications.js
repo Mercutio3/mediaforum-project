@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function (){
     const notificationList = document.getElementById("notifications");
-    const filters = document.querySelectorAll(".button-filter")
+    const filters = document.querySelectorAll(".button-filter");
+    const noNotificationsMessage = document.getElementById("no-notifications");
 
     //Get notifications from database
     async function getNotifications() {
@@ -30,15 +31,20 @@ document.addEventListener("DOMContentLoaded", function (){
 
         console.log("Filtered notifications: ", filteredNotifications);
 
-        notificationList.innerHTML = filteredNotifications.map(notification => `
-            <article class="notification ${notification.is_read ? "read" : "unread"}" data-id="${notification.id}">
-                <div class="notification-content">
-                    <p><strong>${notification.source_username}</strong> ${notification.type === "like" ? "liked" : "commented on"} your review: <a href="review.html?id=${notification.review_id}">${notification.review_title}</a></p>
-                    <span class="timestamp">${new Date(notification.created_at).toLocaleString()}</span>
-                </div>
-                <button class="mark-as-read">${notification.is_read ? "Mark as Unread" : "Mark as Read"}</button>
-            </article>
-        `).join("");
+        if(filteredNotifications.length === 0){
+            noNotificationsMessage.classList.remove("hidden");
+        } else {
+            noNotificationsMessage.classList.add("hidden");
+            notificationList.innerHTML = filteredNotifications.map(notification => `
+                <article class="notification ${notification.is_read ? "read" : "unread"}" data-id="${notification.id}">
+                    <div class="notification-content">
+                        <p><strong>${notification.source_username}</strong> ${notification.type === "like" ? "liked" : "commented on"} your review: <a href="review.html?id=${notification.review_id}">${notification.review_title}</a></p>
+                        <span class="timestamp">${new Date(notification.created_at).toLocaleString()}</span>
+                    </div>
+                    <button class="mark-as-read">${notification.is_read ? "Mark as Unread" : "Mark as Read"}</button>
+                </article>
+            `).join("");
+        }
     }
 
     //Toggle notification "read" status

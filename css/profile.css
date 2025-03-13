@@ -177,3 +177,35 @@
 #delete-review:active {
     background: #FF6B6B;
 }
+
+#profile-comments {
+    margin-top: 20px;
+}
+
+#profile-comments-grid {
+    margin-bottom: 20px;
+}
+
+.profile-comment-card {
+    padding: 10px;
+    border: 1px solid #C4B7A8;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background: #FFF;
+    color: #5A3E36;
+    line-height: 1.6;
+    transition: box-shadow 0.3s ease;
+}
+
+.profile-comment-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-comment-card p {
+    margin: 0;
+}
+
+.profile-comment-card footer {
+    font-size: 0.9em;
+    color: #A37C40;
+}

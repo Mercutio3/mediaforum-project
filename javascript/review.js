@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
         reviewTags.textContent = `Tags: ${review.tags || "No tags"}`;
         reviewCreatedAt.textContent = `Posted on: ${new Date(review.created_at).toLocaleString()}`;
         reviewPoster.textContent = review.username;
-        reviewPoster.href = `user.html?username=${review.username}`;
+        reviewPoster.href = `profile.php?user_id=${review.user_id}`;
         reviewLikes.textContent = review.likes || 0;
         reviewCommentCount.textContent = review.comments ? review.comments.length : 0;
 
@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <article class="comment">
                     <p>${comment.content}</p>
                     <footer>
-                        <span>Posted by <a href="user.html?username=${comment.username}">${comment.username}</a></span>
+                        <span>Posted by <a href="profile.php?user_id=${comment.user_id}">${comment.username}</a></span>
                         <span>${new Date(comment.created_at).toLocaleString()}</span>
                     </footer>
                 </article>
@@ -196,7 +196,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 },
                 body: JSON.stringify({
                     review_id: reviewId,
-                    user_id: 1,
                     content: commentText,
                 }),
             });

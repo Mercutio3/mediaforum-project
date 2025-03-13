@@ -24,9 +24,9 @@ try {
         ORDER BY notifications.created_at DESC
     ");
     $stmt->execute(["user_id" => $userId]);
-    $notificaitons = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $notifications = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    echo json_encode(["success" => true, "notifications" => $notificaitons]);
+    echo json_encode(["success" => true, "notifications" => $notifications]);
 } catch (PDOException $e){
     echo json_encode(["success" => false, "message" => "Database error, try again!"]);
 }

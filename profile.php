@@ -26,6 +26,16 @@ try {
     //If a user doesn't have a profile picture, display the default
     $profilePicture = $user["profile_picture"] ? $user["profile_picture"] : "images/default-pp.png";
 
+    //Get total likes received
+    $stmt = $conn->prepare("
+        SELECT COUNT(likes.id) AS total_likes_received
+        FROM likes
+        JOIN reviews ON likes.review_id = reviews.id
+        WHERE reviews.user_id = :user_id
+    ");
+    $stmt->execute(["user_id" => $profileUserId]);
+    $likesReceivedTotal = $stmt->fetchColumn();
+
     //Get likes received for past 7 days
     $stmt = $conn->prepare("
         SELECT DATE(likes.created_at) AS date, COUNT(likes.id) AS likes_received
@@ -38,6 +48,15 @@ try {
     $likesReceived = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $likesReceivedCount = array_sum(array_column($likesReceived, "likes_received"));
 
+    //Get total likes given
+    $stmt = $conn->prepare("
+        SELECT COUNT(likes.id) AS total_likes_given
+        FROM likes
+        WHERE user_id = :user_id
+    ");
+    $stmt->execute(["user_id" => $profileUserId]);
+    $likesGivenTotal = $stmt->fetchColumn();
+    
     //Get likes given for past 7 days
     $stmt = $conn->prepare("
         SELECT DATE(created_at) AS date, COUNT(id) AS likes_given
@@ -49,6 +68,15 @@ try {
     $likesGiven = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $likesGivenCount = array_sum(array_column($likesGiven, "likes_given"));
 
+    //Get total reviews posted
+    $stmt = $conn->prepare("
+        SELECT COUNT(id) AS total_reviews_posted
+        FROM reviews
+        WHERE user_id = :user_id
+    ");
+    $stmt->execute(["user_id" => $profileUserId]);
+    $reviewsPostedTotal = $stmt->fetchColumn();
+
     //Get reviews posted for past 7 days
     $stmt = $conn->prepare("
         SELECT DATE(created_at) AS date, COUNT(id) AS reviews_posted
@@ -58,6 +86,46 @@ try {
     ");
     $stmt->execute(["user_id" => $profileUserId]);
     $reviewsPosted = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    //Get total comments posted
+    $stmt = $conn->prepare("
+        SELECT COUNT(id) AS total_comments_posted
+        FROM comments
+        WHERE user_id = :user_id
+    ");
+    $stmt->execute(["user_id" => $profileUserId]);
+    $commentsPostedTotal = $stmt->fetchColumn();
+
+    //Get comments posted for past 7 days
+    $stmt = $conn->prepare("
+        SELECT DATE(created_at) AS date, COUNT(id) AS comments_posted
+        FROM comments
+        WHERE user_id = :user_id AND created_at >= NOW() - INTERVAL 7 DAY
+        GROUP BY DATE(created_at)
+    ");
+    $stmt->execute(["user_id" => $profileUserId]);
+    $commentsPosted = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    //Get total comments received
+    $stmt = $conn->prepare("
+        SELECT COUNT(comments.id) AS total_comments_received
+        FROM comments
+        JOIN reviews ON comments.review_id = reviews.id
+        WHERE reviews.user_id = :user_id
+    ");
+    $stmt->execute(["user_id" => $profileUserId]);
+    $commentsReceivedTotal = $stmt->fetchColumn();
+
+    //Get comments received for past 7 days
+    $stmt = $conn->prepare("
+        SELECT DATE(comments.created_at) AS date, COUNT(comments.id) AS comments_received
+        FROM comments
+        JOIN reviews ON comments.review_id = reviews.id
+        WHERE reviews.user_id = :user_id AND comments.created_at >= NOW() - INTERVAL 7 DAY
+        GROUP BY DATE(comments.created_at)
+    ");
+    $stmt->execute(["user_id" => $profileUserId]);
+    $commentsReceived = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     die("Error fetching user data: " . $e->getMessage());
 }
@@ -69,6 +137,20 @@ try {
     $reviews = $stmt->fetchAll();
 } catch (PDOException $e){
     die("Error fetching reivews: " . $e->getMessage());
+}
+try {
+    //Get all comments posted by a user and their respective reviews
+    $stmt = $conn->prepare("
+        SELECT comments.*, reviews.title AS review_title, reviews.id AS review_id
+        FROM comments
+        JOIN reviews ON comments.review_id = reviews.id
+        WHERE comments.user_id = :user_id
+        ORDER BY comments.created_at DESC
+    ");
+    $stmt->execute(["user_id" => $profileUserId]);
+    $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e){
+    die("Error fetching comments: " . $e->getMessage());
 }
 ?>
 
@@ -118,19 +200,27 @@ try {
                 <div class="user-stats">
                     <div class="user-stat">
                         <h3>Likes Received</h3>
-                        <p><?php echo $likesReceivedCount; ?></p>
+                        <p><?php echo $likesReceivedTotal; ?></p>
                     </div>
                     <div class="user-stat">
                         <h3>Likes Given</h3>
-                        <p><?php echo $likesGivenCount; ?></p>
+                        <p><?php echo $likesGivenTotal; ?></p>
                     </div>
                     <div class="user-stat">
                         <h3>Reviews Posted</h3>
-                        <p><?php echo count($reviews); ?></p>
+                        <p><?php echo $reviewsPostedTotal; ?></p>
+                    </div>
+                    <div class="user-stat">
+                        <h3>Comments Posted</h3>
+                        <p><?php echo $commentsPostedTotal; ?></p>
+                    </div>
+                    <div class="user-stat">
+                        <h3>Comments Received</h3>
+                        <p><?php echo $commentsReceivedTotal; ?></p>
                     </div>
                 </div>
                 <br>
-                <h2>Activity (Last 7 Days)</h2>
+                <h2>User Activity (Last 7 Days)</h2>
                 <div class="stats-charts">
                     <div class="stat-chart-div">
                         <canvas id="likesReceivedChart"></canvas>
@@ -141,12 +231,21 @@ try {
                     <div class="stat-chart-div">
                         <canvas id="reviewsPostedChart"></canvas>
                     </div>
+                    <div class="stat-chart-div">
+                        <canvas id="commentsPostedChart"></canvas>
+                    </div>
+                    <div class="stat-chart-div">
+                        <canvas id="commentsReceivedChart"></canvas>
+                    </div>
                 </div>
             </section>
 
             <section id="profile-reviews">
                 <h2>Reviews</h2>
                 <div class="profile-reviews-grid">
+                    <?php if (empty($reviews)): ?>
+                        <p>This user has not posted any reviews.</p>
+                    <?php else: ?>
                     <?php foreach ($reviews as $review): ?>
                         <article class="profile-review-card" data-id="<?php echo $review["id"]; ?>">
                             <h3><a href="review.html?id=<?php echo $review["id"]; ?>"><?php echo htmlspecialchars($review["title"]); ?></a></h3>
@@ -162,16 +261,27 @@ try {
                             </footer>
                         </article>
                     <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
             </section>
 
-            <section id="profile-activity">
-                <h2>User Activity</h2>
-                <ul class="user-activity">
-                    <li>Posted a review... <a href="review.html">Title</a></li>
-                    <li>Posted a comment... <a href="review.html">Title</a></li>
-                    <li>Gave a like... <a href="review.html">Title</a></li>
-                </ul>
+            <section id="profile-comments">
+                <h2>Comments</h2>
+                <div class="profile-comments-grid">
+                    <?php if (empty($comments)): ?>
+                        <p>This user has not posted any comments.</p>
+                    <?php else: ?>
+                    <?php foreach ($comments as $comment): ?>
+                        <article class="profile-comment-card">
+                            <p><?php echo htmlspecialchars($comment["content"]); ?></p>
+                            <footer>
+                                <span>Posted on <a href="review.html?id=<?php echo $comment["review_id"]; ?>"><?php echo htmlspecialchars($comment["review_title"]); ?></a></span>
+                                <span><?php echo date("F j, Y", strtotime($comment["created_at"])); ?></span>
+                            </footer>
+                        </article>
+                    <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
             </section>
         </main>
         <footer>
@@ -181,7 +291,9 @@ try {
             const userStats = {
                 likesGiven: <?php echo json_encode($likesGiven); ?>,
                 likesReceived: <?php echo json_encode($likesReceived); ?>,
-                reviewsPosted: <?php echo json_encode($reviewsPosted); ?>
+                reviewsPosted: <?php echo json_encode($reviewsPosted); ?>,
+                commentsPosted: <?php echo json_encode($commentsPosted); ?>,
+                commentsReceived: <?php echo json_encode($commentsReceived); ?>
             };
         </script>
         <script src="javascript/profile.js"></script>

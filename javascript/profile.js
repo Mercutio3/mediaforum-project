@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
         data.forEach(entry => {
             const index = labels.indexOf(entry.date);
             if(index !== -1){
-                counts[index] = entry.likes_received || entry.likes_given || entry.reviews_posted;
+                counts[index] = entry.likes_received || entry.likes_given || entry.reviews_posted || entry.comments_posted;
             }
         });
         return counts;
@@ -94,9 +94,33 @@ document.addEventListener("DOMContentLoaded", function () {
         }]
     };
 
+    const commentsPostedData = {
+        labels: labels,
+        datasets: [{
+            label: "Comments Posted",
+            data: mapDataToLabels(userStats.commentsPosted, labels),
+            backgroundColor: "rgba(153, 102, 255, 0.2)",
+            borderColor: "rgba(153, 102, 255, 1)",
+            borderWidth: 1
+        }]
+    };
+
+    const commentsReceivedData = {
+        labels: labels,
+        datasets: [{
+            label: "Comments Received",
+            data: mapDataToLabels(userStats.commentsReceived, labels),
+            backgroundColor: "rgba(255, 159, 64, 0.2)",
+            borderColor: "rgba(255, 159, 64, 1)",
+            borderWidth: 1
+        }]
+    };
+
     createChart("likesReceivedChart", likesReceivedData);
     createChart("likesGivenChart", likesGivenData);
     createChart("reviewsPostedChart", reviewsPostedData);
+    createChart("commentsPostedChart", commentsPostedData);
+    createChart("commentsReceivedChart", commentsReceivedData);
 
     function createChart(canvasId, chartData){
         const ctx = document.getElementById(canvasId);

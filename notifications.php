@@ -42,7 +42,9 @@ if(!isset($_SESSION["user_id"])) {
                 <button class="button-filter" data-filter="comment">Comments</button>
             </section>
             
-            <section id="notifications"></section>
+            <section id="notifications">
+                <p id="no-notifications" class="hidden">You don't have notifications.</p>
+            </section>
         </main>
         <footer>
             <p>&copy 2025 Santiago Ham</p>

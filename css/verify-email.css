@@ -1,0 +1,52 @@
+.verify-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 73vh;
+    padding: 20px;
+}
+
+.message-box {
+    background-color: #FFF;
+    padding: 2rem;
+    border: 1px solid #C4B7A8;
+    border-radius: 5px;
+    box-shadow: 0 4x 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 100%
+}
+
+.message-box h1 {
+    margin-bottom: 1rem;
+}
+
+.message-box h1.success {
+    color: #4CAF50;
+}
+
+.message-box h1.error {
+    color: #D9534F;
+}
+
+.message-box p {
+    color: #5A3E36;
+    margin-bottom: 2rem;
+}
+
+.message-box a {
+    color: #E3B23C;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.message-box a:hover {
+    color: #D49C2E;
+    text-decoration: underline;
+}
+
+#countdown {
+    font-weight: bold;
+    color: #E3B23C;
+}
