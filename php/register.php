@@ -26,14 +26,15 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
 
             //SQL query to add user to users table
             $stmt = $conn->prepare("
-                INSERT INTO users (username, email, password, verification_token)
-                VALUES (:username, :email, :password, :verification_token)
+                INSERT INTO users (username, email, password, verification_token, bio)
+                VALUES (:username, :email, :password, :verification_token, :bio)
             ");
             $stmt->execute([
                 "username" => $username,
                 "email" => $email,
                 "password" => $password,
                 "verification_token" => $verificationToken,
+                "bio" => "Hi there! This is my profile.",
             ]);
 
             //Send verification email
@@ -42,14 +43,32 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
             $message = "Thank you for registering to the Media Review Forum! Click this link to verify your email: $verificationLink";
             $headers = "From: no-reply@medrev.com";
 
+            // Save token to a text file
+            $tokenData = [
+                "username" => $username,
+                "email" => $email,
+                "token" => $verificationToken,
+                "generated_at" => date("Y-m-d H:i:s")
+            ];
+            
+            $filePath = "tokens/" . $username . "_token.txt";
+            
+            // Create tokens directory if it doesn't exist
+            if (!file_exists("tokens")) {
+                mkdir("tokens", 0777, true);
+            }
+
+            // Write token to file
+            file_put_contents($filePath, json_encode($tokenData, JSON_PRETTY_PRINT));
+
             if(mail($email, $subject, $message, $headers)){
                 echo json_encode(["success" => true, "message" => "Registration successful! Check the email you entered to verify your account."]);
             } else {
                 echo json_encode(["success" => false, "message" => "Could not send verification email."]);
             }
         }
-    } catch (PDOException $e) {
-        echo json_encode(["success" => false, "message" => "Error. Please try again!"]);
+    }  catch (PDOException $e) {
+        echo json_encode(["success" => false, "message" => "Database error: " . $e->getMessage()]);
     }
 }
 ?>

@@ -1,5 +1,5 @@
 main {
-    max-width: 800px;
+    width: 800px;
     margin: 20px auto;
     padding: 20px;
     border: 1px solid #C4B7A8;
@@ -10,7 +10,7 @@ main {
 
 h2 {
     margin-bottom: 20px;
-    color: #5A3E36
+    color: #5A3E36;
 }
 
 #submission-form fieldset {

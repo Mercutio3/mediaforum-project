@@ -1,4 +1,32 @@
 document.addEventListener("DOMContentLoaded", function () {
+    //Handle form submission for privacy settings
+    document.getElementById("account-privacy-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+        const isPublic = document.getElementById("public-profile").checked;
+
+        fetch("../php/account-privacy.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                public_profile: isPublic,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.success) {
+                alert("Privacy settings updated.");
+            } else {
+                alert(data.message || "Could not update privacy settings.");
+            }
+        })
+        .catch(error => {
+            console.error("Error: ", error);
+            alert("Error updating. Please try again.");
+        });
+    });
+    
     // Handle form submission for profile editing
     document.getElementById("edit-account-form").addEventListener("submit", function (event){
         event.preventDefault();

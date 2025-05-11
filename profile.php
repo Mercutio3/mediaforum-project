@@ -12,122 +12,127 @@ $profileUserId = isset($_GET["user_id"]) ? intval($_GET["user_id"]) : $_SESSION[
 
 try {
     //Get user details from users table
-    $stmt = $conn->prepare("SELECT username, bio, profile_picture FROM users WHERE id = :id");
+    $stmt = $conn->prepare("SELECT username, bio, profile_picture, public_profile FROM users WHERE id = :id");
     $stmt->execute(["id" => $profileUserId]);
     $user = $stmt->fetch();
 
     if(!$user){
-        die("User not found!");
+        $errorMessage = "User not found!";
+    } else {
+        //Check if profile is public before displaying
+        //If profile is private but belongs to you, it's still dispalyed.
+        if(!$user["public_profile"] && $profileUserId !== $_SESSION["user_id"]) {
+            $errorMessage = "This profile is not public.";
+        } else {
+            $username = $user["username"];
+            $bio = $user["bio"];
+            //If a user doesn't have a profile picture, display the default
+            $profilePicture = $user["profile_picture"] ? $user["profile_picture"] : "images/default-pp.png";
+
+            //Get total likes received
+            $stmt = $conn->prepare("
+                SELECT COUNT(likes.id) AS total_likes_received
+                FROM likes
+                JOIN reviews ON likes.review_id = reviews.id
+                WHERE reviews.user_id = :user_id
+            ");
+            $stmt->execute(["user_id" => $profileUserId]);
+            $likesReceivedTotal = $stmt->fetchColumn();
+
+            //Get likes received for past 7 days
+            $stmt = $conn->prepare("
+                SELECT DATE(likes.created_at) AS date, COUNT(likes.id) AS likes_received
+                FROM likes
+                JOIN reviews ON likes.review_id = reviews.id
+                WHERE reviews.user_id = :user_id AND likes.created_at >= NOW() - INTERVAL 7 DAY
+                GROUP BY DATE(likes.created_at)
+            ");
+            $stmt->execute(["user_id" => $profileUserId]);
+            $likesReceived = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $likesReceivedCount = array_sum(array_column($likesReceived, "likes_received"));
+
+            //Get total likes given
+            $stmt = $conn->prepare("
+                SELECT COUNT(likes.id) AS total_likes_given
+                FROM likes
+                WHERE user_id = :user_id
+            ");
+            $stmt->execute(["user_id" => $profileUserId]);
+            $likesGivenTotal = $stmt->fetchColumn();
+
+            //Get likes given for past 7 days
+            $stmt = $conn->prepare("
+                SELECT DATE(created_at) AS date, COUNT(id) AS likes_given
+                FROM likes
+                WHERE user_id = :user_id AND created_at >= NOW() - INTERVAL 7 DAY
+                GROUP BY DATE(created_at)
+            ");
+            $stmt->execute(["user_id" => $profileUserId]);
+            $likesGiven = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $likesGivenCount = array_sum(array_column($likesGiven, "likes_given"));
+
+            //Get total reviews posted
+            $stmt = $conn->prepare("
+                SELECT COUNT(id) AS total_reviews_posted
+                FROM reviews
+                WHERE user_id = :user_id
+            ");
+            $stmt->execute(["user_id" => $profileUserId]);
+            $reviewsPostedTotal = $stmt->fetchColumn();
+
+            //Get reviews posted for past 7 days
+            $stmt = $conn->prepare("
+                SELECT DATE(created_at) AS date, COUNT(id) AS reviews_posted
+                FROM reviews
+                WHERE user_id = :user_id AND created_at >= NOW() - INTERVAL 7 DAY
+                GROUP BY DATE(created_at)
+            ");
+            $stmt->execute(["user_id" => $profileUserId]);
+            $reviewsPosted = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            //Get total comments posted
+            $stmt = $conn->prepare("
+                SELECT COUNT(id) AS total_comments_posted
+                FROM comments
+                WHERE user_id = :user_id
+            ");
+            $stmt->execute(["user_id" => $profileUserId]);
+            $commentsPostedTotal = $stmt->fetchColumn();
+
+            //Get comments posted for past 7 days
+            $stmt = $conn->prepare("
+                SELECT DATE(created_at) AS date, COUNT(id) AS comments_posted
+                FROM comments
+                WHERE user_id = :user_id AND created_at >= NOW() - INTERVAL 7 DAY
+                GROUP BY DATE(created_at)
+            ");
+            $stmt->execute(["user_id" => $profileUserId]);
+            $commentsPosted = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            //Get total comments received
+            $stmt = $conn->prepare("
+                SELECT COUNT(comments.id) AS total_comments_received
+                FROM comments
+                JOIN reviews ON comments.review_id = reviews.id
+                WHERE reviews.user_id = :user_id
+            ");
+            $stmt->execute(["user_id" => $profileUserId]);
+            $commentsReceivedTotal = $stmt->fetchColumn();
+
+            //Get comments received for past 7 days
+            $stmt = $conn->prepare("
+                SELECT DATE(comments.created_at) AS date, COUNT(comments.id) AS comments_received
+                FROM comments
+                JOIN reviews ON comments.review_id = reviews.id
+                WHERE reviews.user_id = :user_id AND comments.created_at >= NOW() - INTERVAL 7 DAY
+                GROUP BY DATE(comments.created_at)
+            ");
+            $stmt->execute(["user_id" => $profileUserId]);
+            $commentsReceived = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
     }
-
-    $username = $user["username"];
-    $bio = $user["bio"];
-
-    //If a user doesn't have a profile picture, display the default
-    $profilePicture = $user["profile_picture"] ? $user["profile_picture"] : "images/default-pp.png";
-
-    //Get total likes received
-    $stmt = $conn->prepare("
-        SELECT COUNT(likes.id) AS total_likes_received
-        FROM likes
-        JOIN reviews ON likes.review_id = reviews.id
-        WHERE reviews.user_id = :user_id
-    ");
-    $stmt->execute(["user_id" => $profileUserId]);
-    $likesReceivedTotal = $stmt->fetchColumn();
-
-    //Get likes received for past 7 days
-    $stmt = $conn->prepare("
-        SELECT DATE(likes.created_at) AS date, COUNT(likes.id) AS likes_received
-        FROM likes
-        JOIN reviews ON likes.review_id = reviews.id
-        WHERE reviews.user_id = :user_id AND likes.created_at >= NOW() - INTERVAL 7 DAY
-        GROUP BY DATE(likes.created_at)
-    ");
-    $stmt->execute(["user_id" => $profileUserId]);
-    $likesReceived = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $likesReceivedCount = array_sum(array_column($likesReceived, "likes_received"));
-
-    //Get total likes given
-    $stmt = $conn->prepare("
-        SELECT COUNT(likes.id) AS total_likes_given
-        FROM likes
-        WHERE user_id = :user_id
-    ");
-    $stmt->execute(["user_id" => $profileUserId]);
-    $likesGivenTotal = $stmt->fetchColumn();
-    
-    //Get likes given for past 7 days
-    $stmt = $conn->prepare("
-        SELECT DATE(created_at) AS date, COUNT(id) AS likes_given
-        FROM likes
-        WHERE user_id = :user_id AND created_at >= NOW() - INTERVAL 7 DAY
-        GROUP BY DATE(created_at)
-    ");
-    $stmt->execute(["user_id" => $profileUserId]);
-    $likesGiven = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $likesGivenCount = array_sum(array_column($likesGiven, "likes_given"));
-
-    //Get total reviews posted
-    $stmt = $conn->prepare("
-        SELECT COUNT(id) AS total_reviews_posted
-        FROM reviews
-        WHERE user_id = :user_id
-    ");
-    $stmt->execute(["user_id" => $profileUserId]);
-    $reviewsPostedTotal = $stmt->fetchColumn();
-
-    //Get reviews posted for past 7 days
-    $stmt = $conn->prepare("
-        SELECT DATE(created_at) AS date, COUNT(id) AS reviews_posted
-        FROM reviews
-        WHERE user_id = :user_id AND created_at >= NOW() - INTERVAL 7 DAY
-        GROUP BY DATE(created_at)
-    ");
-    $stmt->execute(["user_id" => $profileUserId]);
-    $reviewsPosted = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    //Get total comments posted
-    $stmt = $conn->prepare("
-        SELECT COUNT(id) AS total_comments_posted
-        FROM comments
-        WHERE user_id = :user_id
-    ");
-    $stmt->execute(["user_id" => $profileUserId]);
-    $commentsPostedTotal = $stmt->fetchColumn();
-
-    //Get comments posted for past 7 days
-    $stmt = $conn->prepare("
-        SELECT DATE(created_at) AS date, COUNT(id) AS comments_posted
-        FROM comments
-        WHERE user_id = :user_id AND created_at >= NOW() - INTERVAL 7 DAY
-        GROUP BY DATE(created_at)
-    ");
-    $stmt->execute(["user_id" => $profileUserId]);
-    $commentsPosted = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    //Get total comments received
-    $stmt = $conn->prepare("
-        SELECT COUNT(comments.id) AS total_comments_received
-        FROM comments
-        JOIN reviews ON comments.review_id = reviews.id
-        WHERE reviews.user_id = :user_id
-    ");
-    $stmt->execute(["user_id" => $profileUserId]);
-    $commentsReceivedTotal = $stmt->fetchColumn();
-
-    //Get comments received for past 7 days
-    $stmt = $conn->prepare("
-        SELECT DATE(comments.created_at) AS date, COUNT(comments.id) AS comments_received
-        FROM comments
-        JOIN reviews ON comments.review_id = reviews.id
-        WHERE reviews.user_id = :user_id AND comments.created_at >= NOW() - INTERVAL 7 DAY
-        GROUP BY DATE(comments.created_at)
-    ");
-    $stmt->execute(["user_id" => $profileUserId]);
-    $commentsReceived = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    die("Error fetching user data: " . $e->getMessage());
+    $errorMessage = "Error fetching user data: " . $e->getMessage();
 }
 
 try {
@@ -136,7 +141,7 @@ try {
     $stmt->execute(["user_id" => $profileUserId]);
     $reviews = $stmt->fetchAll();
 } catch (PDOException $e){
-    die("Error fetching reivews: " . $e->getMessage());
+    die("Error fetching reviews: " . $e->getMessage());
 }
 try {
     //Get all comments posted by a user and their respective reviews
@@ -158,7 +163,7 @@ try {
 <!DOCTYPE html>
 <html lang = "en">
     <head>
-        <title>Media Review Forum - Profile</title>
+        <title>MedRev - Profile</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="css/global.css">
@@ -167,7 +172,7 @@ try {
     </head>
     <body>
         <header>
-            <h1>Media Review Forum - Profile</h1>
+            <h1>MedRev - Profile</h1>
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
@@ -182,6 +187,15 @@ try {
             </nav>
         </header>
         <main>
+            <?php if (isset($errorMessage)): ?>
+                <section id="profile-error">
+                    <div class="error-box">
+                        <h2>Oops!</h2>
+                        <p><?php echo htmlspecialchars($errorMessage); ?></p>
+                        <p><a href="index.html">Return Home</a></p>
+                    </div>
+                </section>
+            <?php else: ?>
             <section id="profile-info">
                 <div class="profile-picture">
                     <img src="<?php echo htmlspecialchars($profilePicture); ?>" alt="Profile Picture">
@@ -283,6 +297,7 @@ try {
                     <?php endif; ?>
                 </div>
             </section>
+            <?php endif; ?>
         </main>
         <footer>
             <p>&copy 2025 Santiago Ham</p>

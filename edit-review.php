@@ -84,14 +84,14 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 <!DOCTYPE html>
 <html lang = "en">
     <head>
-        <title>Media Review Forum - Edit Review</title>
+        <title>MedRev - Edit Review</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="css/global.css">
         <link rel="stylesheet" type="text/css" href="css/edit-review.css">
     </head>
     <body>
         <header>
-            <h1>Media Review Forum - Edit Review</h1>
+            <h1>MedRev - Edit Review</h1>
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
@@ -112,9 +112,14 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
                     <legend>Media Details</legend>
                     <label for="media_type">Media Type:</label>
                     <select id="media_type" name="media_type" required>
-                        <option value="book" <?php echo $review["media_type"] === "book" ? "selected" : ""; ?>>Book</option>
-                        <option value="movie" <?php echo $review["media_type"] === "movie" ? "selected" : ""; ?>>Movie</option>
-                        <option value="tv-show" <?php echo $review["media_type"] === "tv-show" ? "selected" : ""; ?>>TV Show</option>
+                        <option value="Book" <?php echo $review["media_type"] === "Book" ? "selected" : ""; ?>>Book</option>
+                        <option value="Movie" <?php echo $review["media_type"] === "Movie" ? "selected" : ""; ?>>Movie</option>
+                        <option value="Tv_show" <?php echo $review["media_type"] === "Tv_show" ? "selected" : ""; ?>>TV Show</option>
+                        <option value="Game" <?php echo $review["media_type"] === "Game" ? "selected" : ""; ?>>Game</option>
+                        <option value="Videogame" <?php echo $review["media_type"] === "Videogame" ? "selected" : ""; ?>>Videogame</option>
+                        <option value="Podcast" <?php echo $review["media_type"] === "Podcast" ? "selected" : ""; ?>>Podcast</option>
+                        <option value="Art" <?php echo $review["media_type"] === "Art" ? "selected" : ""; ?>>Art</option>
+                        <option value="Music" <?php echo $review["media_type"] === "Music" ? "selected" : ""; ?>>Music</option>
                     </select>
 
                     <label for="media_title">Media Title:</label>

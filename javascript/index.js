@@ -24,11 +24,11 @@ document.addEventListener("DOMContentLoaded", function () {
         reviewGrid.innerHTML = reviews.map(review => `
             <article class="trending-review-card">
                 <h3><a href="review.html?id=${review.id}">${review.title}</a></h3>
-                <p class="media-type">${review.mediaType}</p>
+                <p class="media-type">${review.media_type}</p>
                 <p class="rating">Rating: ${"*".repeat(review.rating)}${"-".repeat(5-review.rating)}</p>
                 <p class="summary">${review.summary}</p>
                 <footer>
-                    <span>Posted by <a href="user.html?username=${review.poster}">${review.poster}</a></span>
+                    <span>Posted by <a href="profile.php?user_id=${review.user_id}">${review.poster}</a></span>
                     <span>Likes: ${review.like_count}</span>
                     <span>Comments: ${review.comment_count}</span>
                 </footer>
@@ -40,4 +40,12 @@ document.addEventListener("DOMContentLoaded", function () {
     getTrendingReviews().then(reviews => {
         showTrendingReviews(reviews);
     });
+
+    document.querySelector('.media-scroller').addEventListener('mouseenter', () => {
+        document.querySelector('.media-scroller').style.animationPlayState = 'paused';
+      });
+      
+      document.querySelector('.media-scroller').addEventListener('mouseleave', () => {
+        document.querySelector('.media-scroller').style.animationPlayState = 'running';
+      });
 });

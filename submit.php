@@ -11,7 +11,7 @@ if(!isset($_SESSION["user_id"])){
 <!DOCTYPE html>
 <html lang = "en">
     <head>
-        <title>Media Review Forum - Submit</title>
+        <title>MedRev - Submit</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/global.css">
@@ -19,7 +19,7 @@ if(!isset($_SESSION["user_id"])){
     </head>
     <body>
         <header>
-            <h1>Media Review Forum - Submit</h1>
+            <h1>MedRev - Submit</h1>
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
@@ -41,9 +41,14 @@ if(!isset($_SESSION["user_id"])){
                     <label for="media-type">Type of Media:</label>
                     <select id="media-type" name="media_type" required>
                         <option value="">Select type...</option>
-                        <option value="movie">Movie</option>
-                        <option value="tvshow">TV Show</option>
-                        <option value="book">Book</option>
+                        <option value="Movie">Movie</option>
+                        <option value="Tv-Show">TV Show</option>
+                        <option value="Book">Book</option>
+                        <option value="Game">Game</option>
+                        <option value="Videogame">Videogame</option>
+                        <option value="Podcast">Podcast</option>
+                        <option value="Art">Art</option>
+                        <option value="Music">Music</option>
                     </select>
 
                     <label for="media-title">Title:</label>

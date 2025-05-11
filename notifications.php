@@ -12,7 +12,7 @@ if(!isset($_SESSION["user_id"])) {
 <!DOCTYPE html>
 <html lang = "en">
     <head>
-        <title>Media Review Forum - Notifications</title>
+        <title>MedRev - Notifications</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="css/global.css">
@@ -20,7 +20,7 @@ if(!isset($_SESSION["user_id"])) {
     </head>
     <body>
         <header>
-            <h1>Media Review Forum - Notifications</h1>
+            <h1>MedRev - Notifications</h1>
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>

@@ -1,0 +1,6 @@
+{
+    "username": "weewee",
+    "email": "weewee@serp.com",
+    "token": "f77695306b514ddc3da4e047e81d49c24ebb9d25669200343cf1a6f5e6f93ed5",
+    "generated_at": "2025-05-10 19:41:57"
+}

@@ -1,10 +1,23 @@
 <?php
 //Make the page only accessible to logged-in users.
 session_start();
+require "php/config.php";
 if(!isset($_SESSION["user_id"])){
     header("Location: login.html");
     exit();
 }
+
+try {
+    $stmt = $conn->prepare("SELECT public_profile FROM users WHERE id = :id");
+    $stmt->execute(["id" => $_SESSION["user_id"]]);
+    $user = $stmt->fetch();
+    if($user) {
+        $_SESSION["public_profile"] = $user["public_profile"];
+    }
+} catch (PDOException $e){
+    die("Could not fetch user data: " . $e.getMessage());
+}
+
 $username = $_SESSION["username"];
 $email = $_SESSION["email"];
 ?>
@@ -15,7 +28,7 @@ $email = $_SESSION["email"];
 <!DOCTYPE html>
 <html lang = "en">
     <head>
-        <title>Media Review Forum - Account</title>
+        <title>MedRev - Account</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="css/global.css">
@@ -23,7 +36,7 @@ $email = $_SESSION["email"];
     </head>
     <body>
         <header>
-            <h1>Media Review Forum - Account</h1>
+            <h1>MedRev - Account</h1>
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
@@ -70,9 +83,9 @@ $email = $_SESSION["email"];
 
             <section id="account-privacy">
                 <h3>Privacy Settings</h3>
-                <form id="account-privacy-form" action="/privacy-settings" method="POST">
+                <form id="account-privacy-form">
                     <label>
-                        <input type="checkbox" name="account-public" checked>
+                        <input type="checkbox" name="public-profile" id="public-profile" <?php echo ($_SESSION["public_profile"] ?? true) ? "checked" : ""; ?>>
                         Public Profile
                     </label>
                     <label>
