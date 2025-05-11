@@ -1,0 +1,6 @@
+{
+    "username": "MysteryDude",
+    "email": "mystery@ghost.de",
+    "token": "96b34605c41f332ec7cba2d6f662eba14f8348478457172bfe179641b8e81b64",
+    "generated_at": "2025-05-11 13:06:20"
+}

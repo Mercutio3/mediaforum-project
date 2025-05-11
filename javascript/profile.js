@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
     const reviewGrid = document.querySelector(".profile-reviews-grid");
     console.log("Stats: ", userStats);
+
+    //Attempt to delete a review
     async function deleteReview(reviewId){
         try {
             const response = await fetch("../php/review-delete.php", {
@@ -28,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    //Handle delete review button clicking
     reviewGrid.addEventListener("click", function (event) {
         if(event.target.classList.contains("delete-review")) {
             const reviewElement = event.target.closest(".profile-review-card");
@@ -39,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     })
 
+    //Generate labels for charts
     function generateLabels() {
         const labels = [];
         for(let i = 6; i >= 0; i--) {
@@ -49,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return labels;
     }
 
+    //Map user data to labels for charts
     function mapDataToLabels(data, labels) {
         const counts = new Array(labels.length).fill(0);
         data.forEach(entry => {
@@ -60,6 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return counts;
     }
 
+    //Labels and data for "likes received" chart
     const labels = generateLabels();
     const likesReceivedData = {
         labels: labels,
@@ -72,6 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }]
     };
 
+    //Labels and data for "likes given" chart
     const likesGivenData = {
         labels: labels,
         datasets: [{
@@ -83,6 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }]
     };
 
+    //Labels and data for "reviews posted" chart
     const reviewsPostedData = {
         labels: labels,
         datasets: [{
@@ -94,6 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }]
     };
 
+    //Labels and data for "comments posted" chart
     const commentsPostedData = {
         labels: labels,
         datasets: [{
@@ -105,6 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }]
     };
 
+    //Labels and data for "comments received" chart
     const commentsReceivedData = {
         labels: labels,
         datasets: [{
@@ -116,12 +126,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }]
     };
 
+    
     createChart("likesReceivedChart", likesReceivedData);
     createChart("likesGivenChart", likesGivenData);
     createChart("reviewsPostedChart", reviewsPostedData);
     createChart("commentsPostedChart", commentsPostedData);
     createChart("commentsReceivedChart", commentsReceivedData);
 
+    //Create a bar chart with labels and mapped data
     function createChart(canvasId, chartData){
         const ctx = document.getElementById(canvasId);
         if(!ctx) {

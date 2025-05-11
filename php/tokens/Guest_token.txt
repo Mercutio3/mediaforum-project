@@ -1,0 +1,6 @@
+{
+    "username": "Guest",
+    "email": "guest@email.com",
+    "token": "ef25b58ee18141a4d16c6ed0ab0fc1206e4dcd50a37cd1abcb536b2baa35b41d",
+    "generated_at": "2025-05-11 12:54:50"
+}

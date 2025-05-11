@@ -70,6 +70,7 @@ document.addEventListener("DOMContentLoaded", function (){
         }
     }
 
+    //Change filter button CSS
     filters.forEach(button => {
         button.addEventListener("click", function () {
             filters.forEach(btn => btn.classList.remove("active"));

@@ -2,6 +2,7 @@
 session_start();
 header("Content-Type: application/json");
 
+//Check if user logged in
 if(!isset($_SESSION["user_id"])) {
     echo json_encode(["success" => false, "message" => "Not logged in." ]);
     exit();
@@ -15,6 +16,7 @@ $publicProfile = filter_var($data["public_profile"], FILTER_VALIDATE_BOOLEAN) ? 
 error_log("converted setting: " . $publicProfile);
 
 try {
+    //SQL query to change profile visibility status
     $stmt = $conn->prepare("UPDATE users SET public_profile = :public_profile WHERE id = :id");
     $stmt->execute([
         "public_profile" => $publicProfile,

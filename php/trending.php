@@ -19,7 +19,7 @@ try {
         JOIN users ON reviews.user_id = users.id
         GROUP BY reviews.id
         ORDER BY trending_score DESC
-        LIMIT 6
+        LIMIT 4
     ");
     $stmt->execute();
     $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -1,3 +1,6 @@
+//This was a test javascript file using constant user-specified users.
+//Functionally, this was replaced by profile.js.
+
 document.addEventListener("DOMContentLoaded", function () {
     //Get HTML elements
     const userPfp = document.getElementById("user-pfp");

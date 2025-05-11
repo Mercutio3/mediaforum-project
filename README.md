@@ -28,6 +28,7 @@ Some of the HTML files in the root folder have been converted to .php files.
 This is the case for pages that need to retreive and display information
 from the SQL database. More PHP files are found in the /php folder. These
 assist the javascript files with functionality and connect to the database.
+In short, data persistance has been achieved.
 
 The home page was updated with a hero section and scrolling featured media
 feature. The whole project is now called "MedRev". Not a very creative title.
@@ -36,8 +37,15 @@ Some users have already been added to the database, primarily for testing
 purposes. The user "MysteryDude" is set to a private profile, to demonstrate
 this feature.
 
+Keep in mind, being logged in is necessary to access most of MedRev's features.
+
 Currently, eight media types are registered. This number can be arbitrarily
 extended with ease.
+
+### GUEST USER CREDENTIALS
+
+Username: Guest
+password: guest
 
 ### HOW TO VERIFY NEW USER EMAIL
 
@@ -49,6 +57,8 @@ in your browser, using the following URL:
 http://localhost:8888/php/verify-email.php?token=TOKEN
 
 Where you replace "TOKEN" with your token.
+
+-------------------------------------------------
 
 ## Phase 2.2 - HTML + CSS
 

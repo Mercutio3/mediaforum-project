@@ -41,11 +41,12 @@ document.addEventListener("DOMContentLoaded", function () {
         showTrendingReviews(reviews);
     });
 
+    //Stop scrolling featured media section when hovering over with the mouse
     document.querySelector('.media-scroller').addEventListener('mouseenter', () => {
         document.querySelector('.media-scroller').style.animationPlayState = 'paused';
-      });
+    });
       
-      document.querySelector('.media-scroller').addEventListener('mouseleave', () => {
+    document.querySelector('.media-scroller').addEventListener('mouseleave', () => {
         document.querySelector('.media-scroller').style.animationPlayState = 'running';
-      });
+    });
 });
